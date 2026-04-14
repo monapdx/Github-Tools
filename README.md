@@ -25,39 +25,47 @@ Each tool is standalone and can be hosted on **GitHub Pages**.
 
 ## 🚀 Tools Included
 
-### 📑 README TOC + Anchor Generator
+### 📑 README TOC + Anchor Generator 
+
+[![Table of Contents](https://img.shields.io/badge/%F0%9F%93%9C%20Table%20of%20Contents-1f6feb?style=for-the-badge)](https://monapdx.github.io/Github-Tools/github-anchor-generator.html)
 
 Generate a table of contents and copyable anchor links from any markdown file.
 
 ### 🔘 GitHub Button Generator
 
+[![Buttons](https://img.shields.io/badge/%E2%9C%85%20Buttons-1f6feb?style=for-the-badge)](https://monapdx.github.io/Github-Tools/github-button-generator.html)
+
 Create Shields.io badge buttons with Markdown, HTML, and direct URLs.
 
 ### 🔗 GitHub Link Generator
+
+[![Links](https://img.shields.io/badge/%F0%9F%94%97%20Links-1f6feb?style=for-the-badge)](https://monapdx.github.io/Github-Tools/github-link-generator.html)
 
 Quickly build links for repos, issues, templates, files, comparisons, and more.
 
 ### ☁️ GitHub Topic Cloud
 
+[![Topics](https://img.shields.io/badge/%F0%9F%93%8C%20Topics-1f6feb?style=for-the-badge)](https://monapdx.github.io/Github-Tools/github-topic-cloud.html)
+
 Visualize the most common topics used across a GitHub account.
 
 ### 🧩 YAML Form Builder
+
+[![Issues](https://img.shields.io/badge/%E2%9C%A8%20Issues-1f6feb?style=for-the-badge)](https://monapdx.github.io/Github-Tools/issue-template-generator.html)
 
 Visually create structured YAML forms with live preview.
 
 ### 📝 GitHub Issue Form Builder
 
+[![YAML Forms](https://img.shields.io/badge/%F0%9F%93%9A%20YAML%20Forms-1f6feb?style=for-the-badge)](https://monapdx.github.io/Github-Tools/yaml-form-builder.html)
+
 Generate complete GitHub issue forms, config files, deep links, and README snippets.
 
 ---
 
-## 🌐 Live Demo (GitHub Pages)
+## 🌐 Live Demo
 
-> Once enabled:
-
-```
-https://monapdx.github.io/your-repo-name/
-```
+[![Live Demo](https://img.shields.io/badge/%F0%9F%92%96%20Live%20Demo-1f6feb?style=for-the-badge)](https://monapdx.github.io/Github-Tools)
 
 ---
 
