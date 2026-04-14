@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GitHub Tools Suite</title>
+
+  <!-- your shared stylesheet -->
+
+  <link rel="stylesheet" href="./github-tools-common.css" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: auto;
+      padding: 24px;
+    }
+
+    .hero {
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: 2.4rem;
+      margin-bottom: 8px;
+    }
+
+    .hero p {
+      color: #aaa;
+      max-width: 600px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: #bbb;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      background: linear-gradient(135deg, #ff009c, #7c3aed);
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>GitHub Tools Suite</h1>
+      <p>
+        A collection of lightweight tools for improving your GitHub workflow —
+        anchors, buttons, links, forms, and more.
+      </p>
+    </div>
+
+
+<div class="grid">
+
+  <div class="card">
+    <h3>README TOC Generator</h3>
+    <p>Generate a table of contents and anchor links from any README.</p>
+    <a class="btn" href="./github-anchor-generator.html">Open</a>
+  </div>
+
+  <div class="card">
+    <h3>Button Generator</h3>
+    <p>Create GitHub-style badge buttons and links.</p>
+    <a class="btn" href="./github-button-generator.html">Open</a>
+  </div>
+
+  <div class="card">
+    <h3>Link Generator</h3>
+    <p>Build GitHub URLs for repos, issues, templates, and more.</p>
+    <a class="btn" href="./github-link-generator.html">Open</a>
+  </div>
+
+  <div class="card">
+    <h3>Topic Cloud</h3>
+    <p>Visualize a user's most common GitHub topics.</p>
+    <a class="btn" href="./github-topic-cloud.html">Open</a>
+  </div>
+
+  <div class="card">
+    <h3>YAML Form Builder</h3>
+    <p>Create and export YAML form schemas visually.</p>
+    <a class="btn" href="./yaml-form-builder.html">Open</a>
+  </div>
+
+  <div class="card">
+    <h3>Issue Form Builder</h3>
+    <p>Generate full GitHub issue forms with YAML + assets.</p>
+    <a class="btn" href="./issue-template-generator.html">Open</a>
+  </div>
+
+</div>
+
+
+  </div>
+</body>
+</html>
