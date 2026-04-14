@@ -14,78 +14,63 @@
       <p>Generate GitHub issue-form YAML, deep links, README snippets, SVG buttons, and a starter ZIP you can drop into a repo.</p>
     </section>
 
-    <div class="tool-grid">
-      <div class="card">
-        <div class="card-header">
-          <h2>Repository details</h2>
-          <p class="sub">Set the repo target, template filename, metadata, and default labels.</p>
-        </div>
-        <div class="card-content section-stack">
-        <div class="grid two">
-          <div><label>Owner</label><input id="owner" value="monapdx"></div>
-          <div><label>Repo</label><input id="repo" value="your-repo"></div>
-          <div style="grid-column:1/-1"><label>Form name</label><input id="formName" value="Submit a new resource"></div>
-          <div style="grid-column:1/-1"><label>Description</label><textarea id="formDescription">Suggest a resource for inclusion in this repository.</textarea></div>
-          <div><label>Template filename</label><input id="filename" value="submit-resource"></div>
-          <div><label>Issue title prefix</label><input id="titlePrefix" value="[Resource]: "></div>
-          <div><label>Labels (comma-separated)</label><input id="labels" value="resource-submission"></div>
-          <div><label>Assignees (comma-separated)</label><input id="assignees" value=""></div>
-        </div>
-        <div class="checkbox" style="margin-top:12px">
-          <input type="checkbox" id="blankIssues">
-          <label for="blankIssues" style="margin:0">Allow blank issues in config.yml</label>
-        </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <div class="title-row">
-            <div>
-              <h2>Form fields</h2>
-              <p class="sub">Build the issue form schema visually.</p>
+    <div class="issue-layout">
+      <div class="issue-main section-stack">
+        <div class="card">
+          <div class="card-header">
+            <h2>Repository details</h2>
+            <p class="sub">Set the repo target, template filename, metadata, and default labels.</p>
+          </div>
+          <div class="card-content section-stack">
+            <div class="grid two">
+              <div><label>Owner</label><input id="owner" value="monapdx"></div>
+              <div><label>Repo</label><input id="repo" value="your-repo"></div>
+              <div style="grid-column:1/-1"><label>Form name</label><input id="formName" value="Submit a new resource"></div>
+              <div style="grid-column:1/-1"><label>Description</label><textarea id="formDescription">Suggest a resource for inclusion in this repository.</textarea></div>
+              <div><label>Template filename</label><input id="filename" value="submit-resource"></div>
+              <div><label>Issue title prefix</label><input id="titlePrefix" value="[Resource]: "></div>
+              <div><label>Labels (comma-separated)</label><input id="labels" value="resource-submission"></div>
+              <div><label>Assignees (comma-separated)</label><input id="assignees" value=""></div>
             </div>
-            <button type="button" onclick="addField()">Add field</button>
+            <div class="checkbox" style="margin-top:12px">
+              <input type="checkbox" id="blankIssues">
+              <label for="blankIssues" style="margin:0">Allow blank issues in config.yml</label>
+            </div>
           </div>
         </div>
-        <div class="card-content">
-          <div id="fields"></div>
-        </div>
-      </div>
 
-      <div class="card">
-        <div class="card-header">
-          <h2>Button builder</h2>
-          <p class="sub">Customize the generated SVG call-to-action button.</p>
-        </div>
-        <div class="card-content section-stack">
-        <div class="grid two">
-          <div><label>Button label</label><input id="buttonLabel" value="Submit Resource"></div>
-          <div><label>Primary color (hex)</label><input id="buttonColor" value="c2185b"></div>
-          <div><label>Accent color (hex)</label><input id="buttonAccent" value="7c3aed"></div>
-          <div><label>Text color (hex)</label><input id="buttonTextColor" value="ffffff"></div>
-        </div>
-
-        <div class="previewbox" style="margin-top:14px">
-          <div class="small muted" style="margin-bottom:8px">SVG preview</div>
-          <div id="svgPreview"></div>
-        </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="outputs">
-      <div class="card">
-        <div class="card-header">
-          <div class="title-row">
-            <div>
-              <h2>Generated output</h2>
-              <p class="sub">Copy or save the YAML, README snippet, deep link, and SVG assets.</p>
+        <div class="card">
+          <div class="card-header">
+            <h2>Button builder</h2>
+            <p class="sub">Customize the generated SVG call-to-action button.</p>
+          </div>
+          <div class="card-content section-stack">
+            <div class="grid two">
+              <div><label>Button label</label><input id="buttonLabel" value="Submit Resource"></div>
+              <div><label>Primary color (hex)</label><input id="buttonColor" value="c2185b"></div>
+              <div><label>Accent color (hex)</label><input id="buttonAccent" value="7c3aed"></div>
+              <div><label>Text color (hex)</label><input id="buttonTextColor" value="ffffff"></div>
             </div>
-            <button type="button" onclick="downloadStarterZip()">Download starter kit ZIP</button>
+
+            <div class="previewbox" style="margin-top:14px">
+              <div class="small muted" style="margin-bottom:8px">SVG preview</div>
+              <div id="svgPreview"></div>
+            </div>
           </div>
         </div>
-        <div class="card-content section-stack">
+
+        <div class="outputs">
+          <div class="card">
+            <div class="card-header">
+              <div class="title-row">
+                <div>
+                  <h2>Generated output</h2>
+                  <p class="sub">Copy or save the YAML, README snippet, deep link, and SVG assets.</p>
+                </div>
+                <button type="button" onclick="downloadStarterZip()">Download starter kit ZIP</button>
+              </div>
+            </div>
+            <div class="card-content section-stack">
 
         <div class="outblock">
           <div class="outhead">
@@ -140,8 +125,27 @@
           </div>
           <pre id="svgMarkup"></pre>
         </div>
+            </div>
+          </div>
         </div>
       </div>
+
+      <aside class="issue-sidebar">
+        <div class="card">
+          <div class="card-header">
+            <div class="title-row">
+              <div>
+                <h2>Form fields</h2>
+                <p class="sub">Build the issue form schema visually.</p>
+              </div>
+              <button type="button" onclick="addField()">Add field</button>
+            </div>
+          </div>
+          <div class="card-content">
+            <div id="fields"></div>
+          </div>
+        </div>
+      </aside>
     </div>
   </div>
 

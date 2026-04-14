@@ -368,3 +368,39 @@ textarea {
   .wrap, .app { padding: 20px 14px 28px; }
   .tool-hero, .hero, .header, .card-header, .panel-header, .card-content, .panel-body, .section-body { padding-left: 16px; padding-right: 16px; }
 }
+
+
+.issue-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(340px, 0.82fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.issue-main,
+.issue-sidebar {
+  min-width: 0;
+}
+
+.issue-sidebar {
+  position: sticky;
+  top: 18px;
+}
+
+.issue-main .outputs > .card {
+  position: static;
+}
+
+.issue-main pre {
+  min-height: 96px;
+}
+
+@media (max-width: 1200px) {
+  .issue-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .issue-sidebar {
+    position: static;
+  }
+}
