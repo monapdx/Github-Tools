@@ -23,7 +23,7 @@
       <div class="card-content section-stack">
         <div class="field">
           <label for="file">Upload README.md</label>
-          <input type="file" id="file" />
+          <input type="file" id="file" accept=".md,.markdown,.txt" />
         </div>
         <div class="field">
           <label for="input">README content</label>
@@ -34,7 +34,7 @@
 ## Installation"></textarea>
         </div>
         <div class="actions">
-          <button class="primary" onclick="generate()">Generate</button>
+          <button class="primary" id="generateBtn" type="button">Generate</button>
         </div>
       </div>
     </section>
@@ -50,7 +50,7 @@
           <pre id="output"></pre>
         </div>
         <div class="actions">
-          <button onclick="copyTOC()">Copy TOC</button>
+          <button id="copyTocBtn" type="button">Copy TOC</button>
         </div>
 
         <div class="field">
@@ -58,7 +58,7 @@
           <div id="anchors" class="anchors"></div>
         </div>
         <div class="actions">
-          <button onclick="copyAllAnchors()">Copy All Anchors</button>
+          <button id="copyAllBtn" type="button">Copy All Anchors</button>
         </div>
       </div>
     </section>
@@ -68,93 +68,117 @@
 <script>
 function slugify(text, map) {
   let slug = text.toLowerCase()
-    .replace(/[ -⁯⸀-⹿\'!"#$%&()*+,./:;<=>?@[\]^`{|}~]/g, '')
-    .replace(/\s+/g, '-');
+    .replace(/[\u2000-\u206F\u2E00-\u2E7F'!"#$%&()*+,./:;<=>?@[\\\]^`{|}~]/g, "")
+    .replace(/\s+/g, "-");
 
-  if(map[slug] !== undefined) {
+  if (map[slug] !== undefined) {
     map[slug]++;
-    slug = slug + '-' + map[slug];
+    slug = slug + "-" + map[slug];
   } else {
     map[slug] = 0;
   }
+
   return slug;
 }
 
 let anchorList = [];
 
 function generate() {
-  const text = document.getElementById('input').value;
-  const lines = text.split('
-');
+  const text = document.getElementById("input").value;
+  const lines = text.split("\n");
   const map = {};
 
-  let toc = [];
+  const toc = [];
   anchorList = [];
 
-  lines.forEach(line => {
+  lines.forEach((line) => {
     const match = line.match(/^(#{1,6})\s+(.*)/);
-    if(match) {
+    if (match) {
       const level = match[1].length;
       const title = match[2].trim();
       const slug = slugify(title, map);
 
-      const indent = '  '.repeat(level - 1);
+      const indent = "  ".repeat(level - 1);
       toc.push(`${indent}- [${title}](#${slug})`);
-
       anchorList.push({ title, slug });
     }
   });
 
-  document.getElementById('output').textContent = toc.join('
-');
+  document.getElementById("output").textContent = toc.join("\n");
   renderAnchors();
 }
 
 function renderAnchors() {
-  const container = document.getElementById('anchors');
-  container.innerHTML = '';
+  const container = document.getElementById("anchors");
+  container.innerHTML = "";
 
-  anchorList.forEach(item => {
-    const div = document.createElement('div');
-    div.className = 'anchor-item';
+  anchorList.forEach((item) => {
+    const div = document.createElement("div");
+    div.className = "anchor-item";
 
     const url = `#${item.slug}`;
 
-    div.innerHTML = `
-      <span>${item.title}</span>
-      <code>${url}</code>
-      <button onclick="copyText('${url}')">Copy</button>
-    `;
+    const titleSpan = document.createElement("span");
+    titleSpan.textContent = item.title;
+
+    const code = document.createElement("code");
+    code.textContent = url;
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = "Copy";
+    button.addEventListener("click", () => copyText(url));
+
+    div.appendChild(titleSpan);
+    div.appendChild(code);
+    div.appendChild(button);
 
     container.appendChild(div);
   });
 }
 
-function copyText(text) {
-  navigator.clipboard.writeText(text);
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (err) {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text) {
+  const temp = document.createElement("textarea");
+  temp.value = text;
+  document.body.appendChild(temp);
+  temp.select();
+  document.execCommand("copy");
+  document.body.removeChild(temp);
 }
 
 function copyTOC() {
-  const text = document.getElementById('output').textContent;
-  navigator.clipboard.writeText(text);
+  const text = document.getElementById("output").textContent;
+  copyText(text);
 }
 
 function copyAllAnchors() {
-  const text = anchorList.map(a => `${a.title} -> #${a.slug}`).join('
-');
-  navigator.clipboard.writeText(text);
+  const text = anchorList.map((a) => `${a.title} -> #${a.slug}`).join("\n");
+  copyText(text);
 }
 
-const fileInput = document.getElementById('file');
-fileInput.addEventListener('change', e => {
+const fileInput = document.getElementById("file");
+fileInput.addEventListener("change", (e) => {
   const file = e.target.files[0];
-  if(!file) return;
+  if (!file) return;
+
   const reader = new FileReader();
-  reader.onload = e => {
-    document.getElementById('input').value = e.target.result;
+  reader.onload = (event) => {
+    document.getElementById("input").value = event.target.result;
   };
   reader.readAsText(file);
 });
+
+document.getElementById("generateBtn").addEventListener("click", generate);
+document.getElementById("copyTocBtn").addEventListener("click", copyTOC);
+document.getElementById("copyAllBtn").addEventListener("click", copyAllAnchors);
 </script>
 </body>
 </html>
