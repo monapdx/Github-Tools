@@ -56,7 +56,7 @@ Generate complete GitHub issue forms, config files, deep links, and README snipp
 > Once enabled:
 
 ```
-https://your-username.github.io/your-repo-name/
+https://monapdx.github.io/your-repo-name/
 ```
 
 ---
