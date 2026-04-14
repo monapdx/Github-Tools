@@ -4,50 +4,71 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>README TOC + Anchor Generator</title>
-  <style>
-    body { font-family: Inter, Arial; margin:0; background:#f7f7fb; }
-    .wrap { max-width:1100px; margin:auto; padding:20px; }
-    textarea { width:100%; min-height:300px; padding:12px; border-radius:12px; border:1px solid #ccc; }
-    .grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
-    .card { background:white; padding:16px; border-radius:16px; border:1px solid #ddd; }
-    button { padding:8px 12px; border-radius:10px; border:1px solid #ccc; cursor:pointer; }
-    .primary { background:#8a2be2; color:white; border:none; }
-    pre { background:#f6f8fa; padding:12px; border-radius:12px; overflow:auto; }
-    .anchors { margin-top:15px; max-height:200px; overflow:auto; }
-    .anchor-item { display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid #eee; }
-    .anchor-item code { font-size:0.85rem; }
-  </style>
+  <link rel="stylesheet" href="./github-tools-common.css" />
 </head>
 <body>
 <div class="wrap">
-  <h1>README TOC Generator</h1>
+  <section class="tool-hero">
+    <div class="tool-kicker">GitHub Tools Suite</div>
+    <h1>README TOC + Anchor Generator</h1>
+    <p>Upload or paste a README file, generate a linked table of contents, and copy heading anchors individually or all at once.</p>
+  </section>
 
-  <div class="grid">
-    <div class="card">
-      <h3>Input README.md</h3>
-      <input type="file" id="file" />
-      <br><br>
-      <textarea id="input"></textarea>
-      <br><br>
-      <button class="primary" onclick="generate()">Generate</button>
-    </div>
+  <div class="tool-grid grid-equal">
+    <section class="card">
+      <div class="card-header">
+        <h2>Source README</h2>
+        <p class="sub">Drop in a markdown file or paste text directly.</p>
+      </div>
+      <div class="card-content section-stack">
+        <div class="field">
+          <label for="file">Upload README.md</label>
+          <input type="file" id="file" />
+        </div>
+        <div class="field">
+          <label for="input">README content</label>
+          <textarea id="input" placeholder="# Project title
 
-    <div class="card">
-      <h3>Markdown Table of Contents</h3>
-      <pre id="output"></pre>
-      <button onclick="copyTOC()">Copy TOC</button>
+## Overview
 
-      <h3 style="margin-top:20px;">Individual Anchor Links</h3>
-      <div id="anchors" class="anchors"></div>
-      <button onclick="copyAllAnchors()">Copy All Anchors</button>
-    </div>
+## Installation"></textarea>
+        </div>
+        <div class="actions">
+          <button class="primary" onclick="generate()">Generate</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-header">
+        <h2>Generated output</h2>
+        <p class="sub">Copy the TOC block or grab heading anchors one by one.</p>
+      </div>
+      <div class="card-content section-stack">
+        <div class="field">
+          <label for="output">Markdown Table of Contents</label>
+          <pre id="output"></pre>
+        </div>
+        <div class="actions">
+          <button onclick="copyTOC()">Copy TOC</button>
+        </div>
+
+        <div class="field">
+          <label>Individual Anchor Links</label>
+          <div id="anchors" class="anchors"></div>
+        </div>
+        <div class="actions">
+          <button onclick="copyAllAnchors()">Copy All Anchors</button>
+        </div>
+      </div>
+    </section>
   </div>
 </div>
 
 <script>
 function slugify(text, map) {
   let slug = text.toLowerCase()
-    .replace(/[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,./:;<=>?@[\]^`{|}~]/g, '')
+    .replace(/[ -⁯⸀-⹿\'!"#$%&()*+,./:;<=>?@[\]^`{|}~]/g, '')
     .replace(/\s+/g, '-');
 
   if(map[slug] !== undefined) {
@@ -63,7 +84,8 @@ let anchorList = [];
 
 function generate() {
   const text = document.getElementById('input').value;
-  const lines = text.split('\n');
+  const lines = text.split('
+');
   const map = {};
 
   let toc = [];
@@ -83,7 +105,8 @@ function generate() {
     }
   });
 
-  document.getElementById('output').textContent = toc.join('\n');
+  document.getElementById('output').textContent = toc.join('
+');
   renderAnchors();
 }
 
@@ -117,11 +140,11 @@ function copyTOC() {
 }
 
 function copyAllAnchors() {
-  const text = anchorList.map(a => `${a.title} -> #${a.slug}`).join('\n');
+  const text = anchorList.map(a => `${a.title} -> #${a.slug}`).join('
+');
   navigator.clipboard.writeText(text);
 }
 
-// file upload
 const fileInput = document.getElementById('file');
 fileInput.addEventListener('change', e => {
   const file = e.target.files[0];

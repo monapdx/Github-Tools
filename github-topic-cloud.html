@@ -4,232 +4,78 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GitHub Topic Cloud</title>
-    <style>
-      :root {
-        --bg: #0b0b0f;
-        --panel: #12121a;
-        --text: #f3f3f7;
-        --muted: #b7b7c3;
-        --border: #2a2a35;
-        --accent: #ff009c;
-        --chip: #171722;
-        --chipHover: #1f1f2e;
-      }
-      * { box-sizing: border-box; }
-      body {
-        margin: 0;
-        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-        background: radial-gradient(1200px 700px at 20% 0%, rgba(255,0,156,.10), transparent 55%),
-                    radial-gradient(900px 600px at 80% 20%, rgba(0,224,242,.08), transparent 55%),
-                    var(--bg);
-        color: var(--text);
-      }
-      .wrap {
-        max-width: 980px;
-        margin: 40px auto;
-        padding: 0 16px 40px;
-      }
-      h1 {
-        margin: 0 0 8px;
-        font-size: 22px;
-        letter-spacing: .2px;
-      }
-      p {
-        margin: 0 0 18px;
-        color: var(--muted);
-        line-height: 1.4;
-      }
-      .panel {
-        background: rgba(18,18,26,.9);
-        border: 1px solid var(--border);
-        border-radius: 14px;
-        padding: 16px;
-        backdrop-filter: blur(8px);
-      }
-      form {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 10px;
-        align-items: end;
-      }
-      label { display: block; font-size: 12px; color: var(--muted); margin: 0 0 6px; }
-      input[type="text"], input[type="password"] {
-        width: 100%;
-        padding: 12px 12px;
-        border-radius: 12px;
-        border: 1px solid var(--border);
-        background: #0f0f16;
-        color: var(--text);
-        outline: none;
-      }
-      input[type="text"]:focus, input[type="password"]:focus {
-        border-color: rgba(255,0,156,.55);
-        box-shadow: 0 0 0 3px rgba(255,0,156,.12);
-      }
-      button {
-        padding: 12px 14px;
-        border-radius: 12px;
-        border: 1px solid rgba(255,0,156,.55);
-        background: rgba(255,0,156,.14);
-        color: var(--text);
-        cursor: pointer;
-        font-weight: 600;
-      }
-      button:hover { background: rgba(255,0,156,.22); }
-      button:disabled { opacity: .55; cursor: not-allowed; }
-
-      .row {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        align-items: center;
-        margin-top: 10px;
-      }
-
-      .toggle {
-        background: transparent;
-        border: 1px solid var(--border);
-        color: var(--muted);
-        font-weight: 600;
-      }
-      .toggle:hover { background: rgba(255,255,255,.05); }
-
-      .controls {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 10px;
-        margin-top: 12px;
-      }
-      .control {
-        background: #0f0f16;
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: 10px;
-      }
-      .control .value {
-        font-size: 12px;
-        color: var(--muted);
-        margin-top: 6px;
-      }
-      input[type="range"] { width: 100%; }
-
-      .status {
-        margin-top: 12px;
-        color: var(--muted);
-        font-size: 13px;
-      }
-      .status.error { color: #ff6b6b; }
-      .status.ok { color: #9ef2c8; }
-
-      .cloud {
-        margin-top: 16px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        align-items: baseline;
-      }
-      .chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 8px 10px;
-        background: var(--chip);
-        border: 1px solid var(--border);
-        border-radius: 999px;
-        text-decoration: none;
-        color: var(--text);
-        line-height: 1;
-        transition: transform .06s ease, background .15s ease, border-color .15s ease;
-        user-select: none;
-        white-space: nowrap;
-      }
-      .chip:hover {
-        background: var(--chipHover);
-        border-color: rgba(255,0,156,.5);
-        transform: translateY(-1px);
-      }
-      .chip .count {
-        font-size: 12px;
-        color: var(--muted);
-        padding: 3px 8px;
-        border-radius: 999px;
-        border: 1px solid var(--border);
-        background: rgba(0,0,0,.20);
-      }
-
-      .footer {
-        margin-top: 14px;
-        color: var(--muted);
-        font-size: 12px;
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        align-items: center;
-      }
-      .footer a { color: var(--muted); }
-      .footer a:hover { color: var(--text); }
-
-      .hidden { display: none; }
-
-      @media (max-width: 760px) {
-        form { grid-template-columns: 1fr; }
-        .controls { grid-template-columns: 1fr; }
-      }
-    </style>
+    <link rel="stylesheet" href="./github-tools-common.css" />
   </head>
   <body>
     <div class="wrap">
-      <h1>GitHub Topic Cloud</h1>
-      <p>Enter a username to see their most frequently used repository topics. Click a topic to open the global GitHub topic page.</p>
+      <section class="tool-hero">
+        <div class="tool-kicker">GitHub Tools Suite</div>
+        <h1>GitHub Topic Cloud</h1>
+        <p>Enter a username to see their most frequently used repository topics. Click a topic to open the global GitHub topic page.</p>
+      </section>
 
-      <div class="panel">
-        <form id="form">
-          <div>
-            <label for="username">GitHub username</label>
-            <input id="username" type="text" placeholder="e.g. monapdx" autocomplete="off" />
+      <div class="tool-grid">
+        <section class="card">
+          <div class="card-header">
+            <h2>Input + filters</h2>
+            <p class="sub">Pick a user, optionally add a token, and tune how many topics to show.</p>
           </div>
-          <button id="go" type="submit">Generate</button>
-        </form>
+          <div class="card-content section-stack">
+            <form id="form" class="section-stack">
+              <div class="field">
+                <label for="username">GitHub username</label>
+                <input id="username" type="text" placeholder="e.g. monapdx" autocomplete="off" />
+              </div>
+              <div class="actions">
+                <button id="go" type="submit" class="primary">Generate</button>
+                <button id="advancedBtn" class="toggle" type="button">Advanced (token)</button>
+                <button id="clearTokenBtn" class="toggle hidden" type="button">Clear saved token</button>
+              </div>
+            </form>
 
-        <div class="row">
-          <button id="advancedBtn" class="toggle" type="button">Advanced (token)</button>
-          <button id="clearTokenBtn" class="toggle hidden" type="button">Clear saved token</button>
-        </div>
+            <div id="advanced" class="controls hidden">
+              <div class="control" style="grid-column: 1 / -1;">
+                <label for="token">GitHub token (optional, stored locally)</label>
+                <input id="token" type="password" placeholder="ghp_… (optional)" autocomplete="off" />
+                <div class="value">Using a token helps avoid API rate limits. Token is saved in <code>localStorage</code> on this device.</div>
+              </div>
+            </div>
 
-        <div id="advanced" class="controls hidden">
-          <div class="control" style="grid-column: 1 / -1;">
-            <label for="token">GitHub token (optional, stored locally)</label>
-            <input id="token" type="password" placeholder="ghp_… (optional)" autocomplete="off" />
-            <div class="value">Using a token helps avoid API rate limits. Token is saved in <code>localStorage</code> on this device.</div>
+            <div class="controls">
+              <div class="control">
+                <label for="topN">Show top N topics</label>
+                <input id="topN" type="range" min="10" max="100" value="40" />
+                <div class="value"><span id="topNVal">40</span></div>
+              </div>
+
+              <div class="control">
+                <label for="minFreq">Minimum frequency</label>
+                <input id="minFreq" type="range" min="1" max="10" value="1" />
+                <div class="value"><span id="minFreqVal">1</span></div>
+              </div>
+
+              <div class="control">
+                <label for="includeForks">Include forks</label>
+                <input id="includeForks" type="checkbox" />
+                <div class="value">Off by default</div>
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
 
-        <div class="controls">
-          <div class="control">
-            <label for="topN">Show top N topics</label>
-            <input id="topN" type="range" min="10" max="100" value="40" />
-            <div class="value"><span id="topNVal">40</span></div>
+        <section class="card">
+          <div class="card-header">
+            <h2>Results</h2>
+            <p class="sub">Topic frequency, status messages, and summary information.</p>
           </div>
-
-          <div class="control">
-            <label for="minFreq">Minimum frequency</label>
-            <input id="minFreq" type="range" min="1" max="10" value="1" />
-            <div class="value"><span id="minFreqVal">1</span></div>
+          <div class="card-content section-stack">
+            <div id="status" class="status"></div>
+            <div id="cloud" class="cloud"></div>
+            <div class="footer">
+              <span id="summary"></span>
+            </div>
           </div>
-
-          <div class="control">
-            <label for="includeForks">Include forks</label>
-            <input id="includeForks" type="checkbox" />
-            <div class="value">Off by default</div>
-          </div>
-        </div>
-
-        <div id="status" class="status"></div>
-        <div id="cloud" class="cloud"></div>
-
-        <div class="footer">
-          <span id="summary"></span>
-        </div>
+        </section>
       </div>
     </div>
 
