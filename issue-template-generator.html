@@ -4,73 +4,233 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GitHub Issue Form Builder</title>
-  <link rel="stylesheet" href="./github-tools-common.css" />
+  <style>
+    :root {
+      --bg: #f7f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --accent: #c2185b;
+      --accent2: #7c3aed;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background: linear-gradient(180deg, #fafafe, #f3f4f8);
+      color: var(--text);
+    }
+
+    .wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+
+    h1 { margin: 0 0 10px; font-size: 2rem; }
+    h2 { margin: 0 0 8px; font-size: 1.1rem; }
+    p, .muted { color: var(--muted); }
+
+    .grid { display: grid; gap: 14px; }
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    label {
+      display: block;
+      font-size: 0.92rem;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font: inherit;
+      background: white;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .field {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      margin-top: 12px;
+      background: #fcfcff;
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    button {
+      border: 0;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: white;
+      padding: 11px 16px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button.secondary {
+      background: white;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      background: #fafafa;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      min-height: 160px;
+      max-height: 280px;
+      overflow: auto;
+      font-size: 12px;
+    }
+
+    .outputs > .card {
+      position: sticky;
+      top: 18px;
+    }
+
+    .outblock { margin-bottom: 16px; }
+
+    .outhead {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .small { font-size: 0.86rem; }
+
+    .previewbox {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      background: #fafafe;
+    }
+
+    img.preview {
+      max-width: 100%;
+      display: block;
+    }
+
+    .checkbox {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .checkbox input {
+      width: auto;
+    }
+
+    .upload-note {
+      grid-column: 1 / -1;
+      border: 1px dashed var(--border);
+      background: #fafafe;
+      border-radius: 14px;
+      padding: 12px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 1100px) {
+      .wrap { grid-template-columns: 1fr; }
+      .outputs > .card { position: static; }
+    }
+  </style>
 </head>
 <body>
   <div class="wrap">
-    <section class="tool-hero">
-      <div class="tool-kicker">GitHub Tools Suite</div>
-      <h1>GitHub Issue Form Builder</h1>
-      <p>Generate GitHub issue-form YAML, deep links, README snippets, SVG buttons, and a starter ZIP you can drop into a repo.</p>
-    </section>
+    <div class="grid">
+      <div class="card">
+        <h1>GitHub Issue Form Builder</h1>
+        <p>Build your own GitHub issue form without starting from a pile of example content.</p>
+      </div>
 
-    <div class="issue-layout">
-      <div class="issue-main section-stack">
-        <div class="card">
-          <div class="card-header">
-            <h2>Repository details</h2>
-            <p class="sub">Set the repo target, template filename, metadata, and default labels.</p>
-          </div>
-          <div class="card-content section-stack">
-            <div class="grid two">
-              <div><label>Owner</label><input id="owner" value="monapdx"></div>
-              <div><label>Repo</label><input id="repo" value="your-repo"></div>
-              <div style="grid-column:1/-1"><label>Form name</label><input id="formName" value="Submit a new resource"></div>
-              <div style="grid-column:1/-1"><label>Description</label><textarea id="formDescription">Suggest a resource for inclusion in this repository.</textarea></div>
-              <div><label>Template filename</label><input id="filename" value="submit-resource"></div>
-              <div><label>Issue title prefix</label><input id="titlePrefix" value="[Resource]: "></div>
-              <div><label>Labels (comma-separated)</label><input id="labels" value="resource-submission"></div>
-              <div><label>Assignees (comma-separated)</label><input id="assignees" value=""></div>
-            </div>
-            <div class="checkbox" style="margin-top:12px">
-              <input type="checkbox" id="blankIssues">
-              <label for="blankIssues" style="margin:0">Allow blank issues in config.yml</label>
-            </div>
-          </div>
+      <div class="card">
+        <h2>Repository details</h2>
+        <p class="muted">Leave anything blank until you actually need it.</p>
+        <div class="grid two">
+          <div><label>Owner</label><input id="owner" value=""></div>
+          <div><label>Repo</label><input id="repo" value=""></div>
+          <div style="grid-column:1/-1"><label>Form name</label><input id="formName" value=""></div>
+          <div style="grid-column:1/-1"><label>Description</label><textarea id="formDescription"></textarea></div>
+          <div><label>Template filename</label><input id="filename" value=""></div>
+          <div><label>Issue title prefix</label><input id="titlePrefix" value=""></div>
+          <div><label>Labels (comma-separated)</label><input id="labels" value=""></div>
+          <div><label>Assignees (comma-separated)</label><input id="assignees" value=""></div>
+        </div>
+        <div class="checkbox" style="margin-top:12px">
+          <input type="checkbox" id="blankIssues">
+          <label for="blankIssues" style="margin:0">Allow blank issues in config.yml</label>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="row" style="justify-content:space-between">
+          <h2>Form fields</h2>
+          <button type="button" onclick="addField()">Add first field</button>
+        </div>
+        <div id="fields"></div>
+        <p id="emptyState" class="muted" style="margin-top:12px">No fields yet. Start by clicking <strong>Add first field</strong>.</p>
+      </div>
+
+      <div class="card">
+        <h2>Button builder</h2>
+        <p class="muted">Optional. You can ignore this whole section unless you want a README button.</p>
+        <div class="grid two">
+          <div><label>Button label</label><input id="buttonLabel" value="Generate Button"></div>
+          <div><label>Primary color (hex)</label><input id="buttonColor" value="c2185b"></div>
+          <div><label>Accent color (hex)</label><input id="buttonAccent" value="7c3aed"></div>
+          <div><label>Text color (hex)</label><input id="buttonTextColor" value="ffffff"></div>
         </div>
 
-        <div class="card">
-          <div class="card-header">
-            <h2>Button builder</h2>
-            <p class="sub">Customize the generated SVG call-to-action button.</p>
-          </div>
-          <div class="card-content section-stack">
-            <div class="grid two">
-              <div><label>Button label</label><input id="buttonLabel" value="Submit Resource"></div>
-              <div><label>Primary color (hex)</label><input id="buttonColor" value="c2185b"></div>
-              <div><label>Accent color (hex)</label><input id="buttonAccent" value="7c3aed"></div>
-              <div><label>Text color (hex)</label><input id="buttonTextColor" value="ffffff"></div>
-            </div>
-
-            <div class="previewbox" style="margin-top:14px">
-              <div class="small muted" style="margin-bottom:8px">SVG preview</div>
-              <div id="svgPreview"></div>
-            </div>
-          </div>
+        <div class="previewbox" style="margin-top:14px">
+          <div class="small muted" style="margin-bottom:8px">SVG preview</div>
+          <div id="svgPreview"></div>
         </div>
+      </div>
+    </div>
 
-        <div class="outputs">
-          <div class="card">
-            <div class="card-header">
-              <div class="title-row">
-                <div>
-                  <h2>Generated output</h2>
-                  <p class="sub">Copy or save the YAML, README snippet, deep link, and SVG assets.</p>
-                </div>
-                <button type="button" onclick="downloadStarterZip()">Download starter kit ZIP</button>
-              </div>
-            </div>
-            <div class="card-content section-stack">
+    <div class="outputs">
+      <div class="card">
+        <div class="row" style="justify-content:space-between; margin-bottom:14px;">
+          <h2>Generated output</h2>
+          <p class="muted">These boxes stay empty-looking until you start filling things in.</p>
+          <button type="button" onclick="downloadStarterZip()">Download starter kit ZIP</button>
+        </div>
 
         <div class="outblock">
           <div class="outhead">
@@ -125,72 +285,12 @@
           </div>
           <pre id="svgMarkup"></pre>
         </div>
-            </div>
-          </div>
-        </div>
       </div>
-
-      <aside class="issue-sidebar">
-        <div class="card">
-          <div class="card-header">
-            <div class="title-row">
-              <div>
-                <h2>Form fields</h2>
-                <p class="sub">Build the issue form schema visually.</p>
-              </div>
-              <button type="button" onclick="addField()">Add field</button>
-            </div>
-          </div>
-          <div class="card-content">
-            <div id="fields"></div>
-          </div>
-        </div>
-      </aside>
     </div>
   </div>
 
   <script type="module">
-    const defaultFields = [
-      {
-        id: "resource_name",
-        type: "input",
-        label: "Resource name",
-        description: "What should this resource be called in the repo?",
-        placeholder: "Abortion Fund Resource Directory",
-        required: true,
-      },
-      {
-        id: "resource_url",
-        type: "input",
-        label: "Resource URL",
-        description: "Paste the main link for the resource.",
-        placeholder: "https://example.org/resource",
-        required: true,
-      },
-      {
-        id: "summary",
-        type: "textarea",
-        label: "Summary",
-        description: "Briefly explain what this resource is and why it belongs.",
-        placeholder: "A short description of the resource and who it helps.",
-        required: true,
-      },
-      {
-        id: "categories",
-        type: "checkboxes",
-        label: "Categories",
-        description: "Choose all that apply.",
-        required: true,
-        options: [
-          "Abortion",
-          "Funding",
-          "Legal support",
-          "Emotional support",
-          "Storytelling",
-          "Advocacy",
-        ],
-      },
-    ];
+    const defaultFields = [];
 
     const fieldTypeOptions = [
       { value: "input", label: "Short text" },
@@ -405,6 +505,8 @@ ${markdownTextLink}
 
     function renderFields() {
       fieldsEl.innerHTML = "";
+      const emptyState = document.getElementById("emptyState");
+      if (emptyState) emptyState.style.display = fields.length ? "none" : "block";
 
       fields.forEach((field, index) => {
         const div = document.createElement("div");
