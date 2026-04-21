@@ -1,0 +1,558 @@
+/* Unified neo-brutalist shell for GitHub Tools Suite (index + tools) */
+
+html.neo-landing-root {
+  color-scheme: dark;
+}
+
+:root {
+  --neo-black: #0a0a0a;
+  --neo-white: #ffffff;
+  --neo-lime: #39ff14;
+  --neo-pink: #ff1493;
+  --neo-border: 4px solid var(--neo-black);
+  --neo-shadow: 8px 8px 0 var(--neo-lime);
+  --neo-shadow-sm: 5px 5px 0 var(--neo-lime);
+  --neo-font: "IBM Plex Mono", ui-monospace, "Cascadia Code", "Consolas", monospace;
+  --neo-hero-heading-font: Impact, "Arial Black", "Franklin Gothic Heavy", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* ----- Page chrome ----- */
+
+body.neo-landing {
+  min-height: 100vh;
+  margin: 0;
+  font-family: var(--neo-font);
+  font-weight: 500;
+  color: var(--neo-white);
+  background-color: var(--neo-black);
+  background-image:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.22) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.22) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: -1px -1px;
+}
+
+body.neo-landing a {
+  color: var(--neo-lime);
+  text-decoration: none;
+}
+
+body.neo-landing a:hover {
+  text-decoration: underline;
+}
+
+body.neo-landing .neo-btn,
+body.neo-landing .neo-btn:hover {
+  text-decoration: none;
+}
+
+body.neo-landing .neo-wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 32px 20px 48px;
+}
+
+body.neo-landing .neo-hero {
+  margin-bottom: 32px;
+  padding: 28px 26px;
+  background: var(--neo-white);
+  border: var(--neo-border);
+  box-shadow: var(--neo-shadow);
+  position: relative;
+}
+
+body.neo-landing .neo-hero::after {
+  content: "TOOLS";
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-family: var(--neo-font);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  padding: 6px 10px;
+  background: var(--neo-black);
+  color: var(--neo-lime);
+  border: 3px solid var(--neo-black);
+  box-shadow: 3px 3px 0 var(--neo-lime);
+}
+
+body.neo-landing .neo-hero h1 {
+  margin: 0 0 12px;
+  max-width: 18ch;
+  font-family: var(--neo-hero-heading-font);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  line-height: 0.92;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--neo-pink);
+}
+
+body.neo-landing .neo-hero p {
+  margin: 0;
+  max-width: 38ch;
+  font-size: 1.05rem;
+  line-height: 1.45;
+  color: var(--neo-black);
+  font-weight: 500;
+}
+
+body.neo-landing .neo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 22px;
+}
+
+body.neo-landing .neo-card {
+  display: flex;
+  flex-direction: column;
+  padding: 22px 20px 20px;
+  background: var(--neo-white);
+  border: var(--neo-border);
+  box-shadow: var(--neo-shadow-sm);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+body.neo-landing .neo-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 11px 11px 0 var(--neo-lime);
+}
+
+body.neo-landing .neo-card h3 {
+  margin: 0 0 10px;
+  font-family: var(--neo-font);
+  font-weight: 700;
+  font-size: 1.15rem;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--neo-black);
+}
+
+body.neo-landing .neo-card p {
+  margin: 0;
+  flex: 1;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--neo-black);
+  opacity: 0.88;
+}
+
+body.neo-landing .neo-btn {
+  align-self: flex-start;
+  margin-top: 18px;
+  padding: 12px 18px;
+  font-family: var(--neo-font);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--neo-lime);
+  background: var(--neo-black);
+  border: 3px solid var(--neo-black);
+  box-shadow: 4px 4px 0 var(--neo-lime);
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease, color 0.1s ease;
+}
+
+body.neo-landing .neo-btn:hover {
+  background: var(--neo-lime);
+  color: var(--neo-black);
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--neo-black);
+}
+
+body.neo-landing .neo-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--neo-black);
+}
+
+@media (max-width: 600px) {
+  body.neo-landing .neo-hero::after {
+    position: static;
+    display: inline-block;
+    margin-bottom: 14px;
+  }
+
+  body.neo-landing .neo-hero {
+    padding-top: 22px;
+  }
+}
+
+/* ----- github-tools-common.css tool layouts ----- */
+
+body.neo-landing .wrap,
+body.neo-landing .app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px 18px 40px;
+}
+
+body.neo-landing .tool-hero,
+body.neo-landing .hero,
+body.neo-landing .header {
+  margin-bottom: 32px;
+  padding: 28px 26px;
+  background: var(--neo-white);
+  border: var(--neo-border);
+  border-radius: 0;
+  box-shadow: var(--neo-shadow);
+  backdrop-filter: none;
+  position: relative;
+}
+
+body.neo-landing .tool-hero h1,
+body.neo-landing .header h1 {
+  font-family: var(--neo-hero-heading-font);
+  font-weight: 400;
+  font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--neo-pink);
+}
+
+body.neo-landing .tool-hero p,
+body.neo-landing .header p {
+  color: var(--neo-black);
+  font-weight: 500;
+}
+
+body.neo-landing .tool-kicker {
+  border-radius: 0;
+  border: 3px solid var(--neo-black);
+  background: var(--neo-black);
+  color: var(--neo-lime);
+  box-shadow: 3px 3px 0 var(--neo-lime);
+}
+
+body.neo-landing .card,
+body.neo-landing .panel {
+  background: var(--neo-white);
+  border: var(--neo-border);
+  border-radius: 0;
+  box-shadow: var(--neo-shadow-sm);
+  backdrop-filter: none;
+  color: var(--neo-black);
+}
+
+body.neo-landing .card-header,
+body.neo-landing .panel-header,
+body.neo-landing .section-header {
+  border-bottom: 3px solid var(--neo-black);
+  background: #f0f0f0;
+  border-radius: 0;
+}
+
+body.neo-landing .card-header h2,
+body.neo-landing .panel-header h2,
+body.neo-landing .section-header h2 {
+  color: var(--neo-black);
+  font-family: var(--neo-font);
+}
+
+body.neo-landing .card-header .sub,
+body.neo-landing .panel-header p,
+body.neo-landing .card-content .sub,
+body.neo-landing .panel-body .sub,
+body.neo-landing .hint,
+body.neo-landing .card .muted,
+body.neo-landing .panel .muted {
+  color: #2d2d2d !important;
+}
+
+body.neo-landing .card-content,
+body.neo-landing .panel-body,
+body.neo-landing .section-body {
+  background: var(--neo-white);
+}
+
+body.neo-landing .card-content label,
+body.neo-landing .panel-body label,
+body.neo-landing .field label {
+  color: var(--neo-black);
+}
+
+body.neo-landing .card input,
+body.neo-landing .card select,
+body.neo-landing .card textarea,
+body.neo-landing .panel input,
+body.neo-landing .panel select,
+body.neo-landing .panel textarea {
+  background: var(--neo-white);
+  color: var(--neo-black);
+  border: 2px solid var(--neo-black);
+  border-radius: 0;
+}
+
+body.neo-landing input::placeholder,
+body.neo-landing textarea::placeholder {
+  color: #5a5a5a;
+}
+
+body.neo-landing input:focus,
+body.neo-landing select:focus,
+body.neo-landing textarea:focus {
+  border-color: var(--neo-pink);
+  box-shadow: 0 0 0 3px rgba(255, 20, 147, 0.22);
+}
+
+body.neo-landing pre,
+body.neo-landing .code-box {
+  background: var(--neo-black);
+  color: var(--neo-white);
+  border: 3px solid var(--neo-black);
+  border-radius: 0;
+  box-shadow: 4px 4px 0 var(--neo-lime);
+}
+
+body.neo-landing code {
+  background: rgba(0, 0, 0, 0.08);
+  color: var(--neo-black);
+  border-radius: 0;
+}
+
+body.neo-landing pre code {
+  background: transparent;
+  color: inherit;
+}
+
+body.neo-landing .preview-box,
+body.neo-landing .preview,
+body.neo-landing .previewbox,
+body.neo-landing .example,
+body.neo-landing .options-box,
+body.neo-landing .empty,
+body.neo-landing .toggle-row,
+body.neo-landing .field-card,
+body.neo-landing .control,
+body.neo-landing .upload-note,
+body.neo-landing .preview-group {
+  background: #f6f6f6;
+  border: 2px solid var(--neo-black);
+  border-radius: 0;
+  color: var(--neo-black);
+}
+
+body.neo-landing .anchor-item {
+  border-bottom-color: #ccc;
+}
+
+body.neo-landing .chip .count {
+  color: var(--neo-black);
+  border: 2px solid var(--neo-black);
+  background: #eee;
+}
+
+body.neo-landing:not(.neo-dash) button,
+body.neo-landing:not(.neo-dash) .btn,
+body.neo-landing:not(.neo-dash) .tab,
+body.neo-landing:not(.neo-dash) .chip,
+body.neo-landing:not(.neo-dash) .copy-btn {
+  border-radius: 0;
+  border: 3px solid var(--neo-black);
+  font-family: var(--neo-font);
+  font-weight: 600;
+  background: #f2f2f2;
+  color: var(--neo-black);
+}
+
+body.neo-landing:not(.neo-dash) button:hover,
+body.neo-landing:not(.neo-dash) .btn:hover,
+body.neo-landing:not(.neo-dash) .tab:hover,
+body.neo-landing:not(.neo-dash) .chip:hover,
+body.neo-landing:not(.neo-dash) .copy-btn:hover {
+  transform: translate(-1px, -1px);
+  background: #fff;
+  border-color: var(--neo-black);
+}
+
+body.neo-landing:not(.neo-dash) .primary,
+body.neo-landing:not(.neo-dash) .btn-primary,
+body.neo-landing:not(.neo-dash) .btn.accent,
+body.neo-landing:not(.neo-dash) button.primary:not(.secondary) {
+  background: var(--neo-black);
+  color: var(--neo-lime);
+  border: 3px solid var(--neo-black);
+  box-shadow: 4px 4px 0 var(--neo-lime);
+  background-image: none;
+}
+
+body.neo-landing:not(.neo-dash) .primary:hover,
+body.neo-landing:not(.neo-dash) .btn-primary:hover,
+body.neo-landing:not(.neo-dash) button.primary:not(.secondary):hover {
+  background: var(--neo-lime);
+  color: var(--neo-black);
+  box-shadow: 2px 2px 0 var(--neo-black);
+}
+
+body.neo-landing:not(.neo-dash) .secondary,
+body.neo-landing:not(.neo-dash) .btn-secondary,
+body.neo-landing:not(.neo-dash) .btn-ghost,
+body.neo-landing:not(.neo-dash) button.secondary {
+  background: var(--neo-white);
+  color: var(--neo-black);
+  border: 3px solid var(--neo-black);
+}
+
+body.neo-landing:not(.neo-dash) .btn-danger {
+  background: #ffe0e8;
+  color: var(--neo-black);
+  border: 3px solid var(--neo-black);
+}
+
+body.neo-landing .value,
+body.neo-landing .status,
+body.neo-landing .card .value {
+  color: #333 !important;
+}
+
+body.neo-landing .card a,
+body.neo-landing .panel a,
+body.neo-landing .tool-hero a {
+  color: var(--neo-black);
+  text-decoration: underline;
+}
+
+body.neo-landing .card a:hover,
+body.neo-landing .panel a:hover {
+  color: var(--neo-pink);
+}
+
+body.neo-landing .slider {
+  border: 2px solid var(--neo-black);
+  border-radius: 999px;
+}
+
+body.neo-landing .toggle input:checked + .slider {
+  background: var(--neo-lime);
+}
+
+body.neo-landing .toggle input:checked + .slider::before {
+  background: var(--neo-black);
+}
+
+/* Issue template standalone page: first card as hero */
+body.neo-landing .wrap > .grid > .card:first-child {
+  padding: 28px 26px;
+  box-shadow: var(--neo-shadow);
+}
+
+body.neo-landing .wrap > .grid > .card:first-child h1 {
+  font-family: var(--neo-hero-heading-font);
+  font-weight: 400;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--neo-pink);
+}
+
+body.neo-landing .wrap > .grid > .card:first-child p {
+  color: var(--neo-black);
+  font-weight: 500;
+}
+
+body.neo-landing .wrap > .grid > .card:not(:first-child),
+body.neo-landing .outputs > .card {
+  box-shadow: var(--neo-shadow-sm);
+}
+
+body.neo-landing.issue-tool .wrap > .grid > .card:not(:first-child) {
+  border: var(--neo-border);
+}
+
+body.neo-landing.issue-tool .field {
+  border: 2px solid var(--neo-black);
+  border-radius: 0;
+  background: #fafafa;
+}
+
+body.neo-landing.issue-tool button {
+  border: 3px solid var(--neo-black);
+  border-radius: 0;
+  font-family: var(--neo-font);
+  font-weight: 700;
+  background: var(--neo-black);
+  color: var(--neo-lime);
+  box-shadow: 4px 4px 0 var(--neo-lime);
+}
+
+body.neo-landing.issue-tool button.secondary {
+  background: var(--neo-white);
+  color: var(--neo-black);
+  box-shadow: 4px 4px 0 var(--neo-black);
+}
+
+body.neo-landing.issue-tool pre {
+  border: 3px solid var(--neo-black);
+  border-radius: 0;
+  background: var(--neo-black);
+  color: var(--neo-white);
+  box-shadow: 4px 4px 0 var(--neo-lime);
+}
+
+body.neo-landing.issue-tool .muted {
+  color: #444 !important;
+}
+
+body.neo-landing.issue-tool h2 {
+  color: var(--neo-black);
+}
+
+/* GitHub Dashboard Builder */
+body.neo-landing.neo-dash .hero {
+  padding: 20px;
+  background: var(--neo-white);
+  border: var(--neo-border);
+  box-shadow: var(--neo-shadow);
+}
+
+body.neo-landing.neo-dash .hero h1 {
+  font-family: var(--neo-hero-heading-font);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--neo-pink);
+}
+
+body.neo-landing.neo-dash .hero p {
+  color: var(--neo-black);
+  max-width: 42ch;
+}
+
+body.neo-landing.neo-dash .panel {
+  background: var(--neo-white);
+  border: var(--neo-border);
+  border-radius: 0;
+  box-shadow: var(--neo-shadow-sm);
+  color: var(--neo-black);
+}
+
+body.neo-landing.neo-dash .panel h2,
+body.neo-landing.neo-dash .panel h3 {
+  color: var(--neo-black);
+  font-family: var(--neo-font);
+}
+
+body.neo-landing.neo-dash .field label {
+  color: var(--neo-black);
+}
+
+body.neo-landing.neo-dash .sidebar,
+body.neo-landing.neo-dash .builder,
+body.neo-landing.neo-dash .preview {
+  border-right: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+body.neo-landing.neo-dash .sidebar-section-toggle {
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0;
+  color: var(--neo-white);
+}
+
+body.neo-landing.neo-dash .sidebar-section-toggle:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
