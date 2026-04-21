@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GitHub Dashboard Builder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
 html { -webkit-text-size-adjust: 100%; }
 img, video, canvas, svg { max-width: 100%; height: auto; }
@@ -22,6 +25,14 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
       --danger: #fb7185;
       --shadow: 0 16px 40px rgba(0,0,0,.35);
       --radius: 16px;
+      /* Neo-brutalist export controls */
+      --brutal-ink: #07080d;
+      --brutal-shadow: 5px 5px 0 var(--brutal-ink);
+      --brutal-shadow-sm: 3px 3px 0 var(--brutal-ink);
+      --brutal-lime: #c8f542;
+      --brutal-cream: #f2efe6;
+      --brutal-yellow: #ffe14a;
+      --font-export: "Oswald", system-ui, sans-serif;
     }
 
     * { box-sizing: border-box; }
@@ -78,10 +89,252 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
     .panel h2, .panel h3 { margin: 0 0 10px; font-size: 1rem; }
     .panel p.small, .small { margin: 0; color: var(--muted); font-size: 0.88rem; }
 
+    .sidebar-section {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .sidebar-section.is-collapsed .sidebar-section-body,
+    .preview-markdown-section.is-collapsed .sidebar-section-body {
+      display: none;
+    }
+
+    .sidebar-section-toggle {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 14px;
+      margin: 0;
+      border: none;
+      border-radius: var(--radius);
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .sidebar-section-toggle:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .sidebar-section-toggle:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: -2px;
+    }
+
+    .sidebar-section-title {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .sidebar-section-chevron {
+      flex-shrink: 0;
+      font-size: 0.75rem;
+      color: var(--muted);
+      transition: transform 0.2s ease;
+    }
+
+    .sidebar-section.is-collapsed .sidebar-section-chevron,
+    .preview-markdown-section.is-collapsed .sidebar-section-chevron {
+      transform: rotate(-90deg);
+    }
+
+    .sidebar-section-body {
+      padding: 0 14px 14px;
+      display: grid;
+      gap: 10px;
+    }
+
     .button-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
+    }
+
+    /* Neo-brutalist + Oswald: Export (stacked) + Presets (2×2 grid) */
+    .export-actions {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .preset-actions,
+    .add-block-actions {
+      gap: 12px;
+    }
+
+    .export-actions button,
+    .preset-actions button,
+    .add-block-actions button {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 3rem;
+      padding: 0.75rem 1rem;
+      font-family: var(--font-export);
+      font-size: 0.875rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-radius: 6px;
+      border: 3px solid var(--brutal-ink);
+      color: var(--brutal-ink);
+      background: var(--brutal-cream);
+      box-shadow: var(--brutal-shadow);
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+    }
+
+    .export-actions button:hover,
+    .preset-actions button:hover,
+    .add-block-actions button:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 7px 7px 0 var(--brutal-ink);
+    }
+
+    .export-actions button:active,
+    .preset-actions button:active,
+    .add-block-actions button:active {
+      transform: translate(3px, 3px);
+      box-shadow: var(--brutal-shadow-sm);
+    }
+
+    .export-actions button:focus-visible,
+    .preset-actions button:focus-visible,
+    .add-block-actions button:focus-visible {
+      outline: 3px solid var(--brutal-lime);
+      outline-offset: 3px;
+    }
+
+    .export-actions #copyMarkdownBtn {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--brutal-ink);
+      box-shadow: var(--brutal-shadow);
+    }
+
+    .export-actions #copyMarkdownBtn:hover {
+      background: #ff4db2;
+    }
+
+    .export-actions #downloadMarkdownBtn,
+    .export-actions #downloadJsonBtn {
+      background: var(--brutal-yellow);
+      color: var(--brutal-ink);
+    }
+
+    .export-actions #downloadMarkdownBtn:hover,
+    .export-actions #downloadJsonBtn:hover {
+      background: #fff08a;
+    }
+
+    .export-actions #loadJsonBtn {
+      background: var(--brutal-lime);
+      color: var(--brutal-ink);
+    }
+
+    .export-actions #loadJsonBtn:hover {
+      background: #def65a;
+    }
+
+    .preset-actions [data-preset="readme"] {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .preset-actions [data-preset="readme"]:hover {
+      background: #ff4db2;
+    }
+
+    .preset-actions [data-preset="profile"] {
+      background: var(--brutal-yellow);
+    }
+
+    .preset-actions [data-preset="profile"]:hover {
+      background: #fff08a;
+    }
+
+    .preset-actions [data-preset="docs"] {
+      background: var(--brutal-lime);
+    }
+
+    .preset-actions [data-preset="docs"]:hover {
+      background: #def65a;
+    }
+
+    .preset-actions [data-preset="roadmap"] {
+      background: var(--brutal-cream);
+    }
+
+    .preset-actions [data-preset="roadmap"]:hover {
+      background: #faf7ef;
+    }
+
+    /* Add block — same brutal frame; label + hint stack; cycle fills */
+    .block-types.add-block-actions button {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      min-height: 4.5rem;
+      text-transform: none;
+      letter-spacing: 0.03em;
+      font-size: 0.8125rem;
+      line-height: 1.25;
+    }
+
+    .block-types.add-block-actions button span {
+      font-family: Inter, system-ui, sans-serif;
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--brutal-ink);
+      opacity: 0.72;
+      margin-top: 4px;
+      text-transform: none;
+    }
+
+    .add-block-actions button:nth-child(4n + 1) {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .add-block-actions button:nth-child(4n + 1) span {
+      color: rgba(255, 255, 255, 0.9);
+      opacity: 1;
+    }
+
+    .add-block-actions button:nth-child(4n + 1):hover {
+      background: #ff4db2;
+    }
+
+    .add-block-actions button:nth-child(4n + 2) {
+      background: var(--brutal-yellow);
+    }
+
+    .add-block-actions button:nth-child(4n + 2):hover {
+      background: #fff08a;
+    }
+
+    .add-block-actions button:nth-child(4n + 3) {
+      background: var(--brutal-lime);
+    }
+
+    .add-block-actions button:nth-child(4n + 3):hover {
+      background: #def65a;
+    }
+
+    .add-block-actions button:nth-child(4n + 4) {
+      background: var(--brutal-cream);
+    }
+
+    .add-block-actions button:nth-child(4n + 4):hover {
+      background: #faf7ef;
     }
 
     button {
@@ -133,6 +386,10 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
       margin-top: 4px;
     }
 
+    .block-types.add-block-actions {
+      gap: 12px;
+    }
+
     .list { display: grid; gap: 10px; }
 
     .block-card {
@@ -141,17 +398,78 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
       border-radius: 16px;
       padding: 12px;
       display: grid;
+      gap: 0;
+    }
+
+    .block-card.is-collapsed .block-card-body {
+      display: none;
+    }
+
+    .block-card-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .block-card.is-collapsed .block-card-header {
+      margin-bottom: 0;
+    }
+
+    .block-card-toggle {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 4px 8px;
+      margin: -4px -8px;
+      border: none;
+      border-radius: 10px;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .block-card-toggle:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .block-card-toggle:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .block-card-toggle-text {
+      display: grid;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .block-card-toggle-text strong { font-size: 0.98rem; }
+
+    .block-card-chevron {
+      flex-shrink: 0;
+      font-size: 0.75rem;
+      color: var(--muted);
+      transition: transform 0.2s ease;
+    }
+
+    .block-card.is-collapsed .block-card-chevron {
+      transform: rotate(-90deg);
+    }
+
+    .block-card-body {
+      display: grid;
       gap: 12px;
     }
 
-    .block-card header {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .block-card header strong { font-size: 0.98rem; }
     .meta {
       font-size: 0.78rem;
       color: var(--muted);
@@ -237,6 +555,68 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
       border-top: 0;
     }
 
+    .preview-box .md-button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin: 10px 0;
+    }
+
+    .preview-box .md-button-row a {
+      display: inline-block;
+      line-height: 0;
+    }
+
+    .preview-box .md-button-row img {
+      max-height: 28px;
+      width: auto;
+      display: block;
+    }
+
+    .preview-box details {
+      margin: 14px 0;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      white-space: pre-line;
+    }
+
+    .preview-box details > summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text);
+      list-style: none;
+    }
+
+    .preview-box details > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .preview-box details > summary::before {
+      content: "▸ ";
+      display: inline-block;
+      margin-right: 6px;
+      transition: transform 0.15s ease;
+      color: var(--muted);
+    }
+
+    .preview-box details[open] > summary::before {
+      transform: rotate(90deg);
+    }
+
+    .preview-box a {
+      color: var(--accent-2);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    .preview-box a:hover {
+      color: var(--accent);
+    }
+
     .pill {
       display: inline-flex;
       align-items: center;
@@ -301,30 +681,45 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
           </div>
         </section>
 
-        <section class="panel">
-          <h2>Presets</h2>
-          <div class="button-grid">
-            <button data-preset="readme">README</button>
-            <button data-preset="profile">Profile README</button>
-            <button data-preset="docs">Docs Hub</button>
-            <button data-preset="roadmap">Roadmap</button>
+        <section class="panel sidebar-section is-collapsed" data-sidebar-section="presets">
+          <button type="button" class="sidebar-section-toggle" aria-expanded="false" aria-controls="sidebar-presets-body" id="sidebar-presets-head">
+            <span class="sidebar-section-title">Presets</span>
+            <span class="sidebar-section-chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="sidebar-section-body" id="sidebar-presets-body" role="region" aria-labelledby="sidebar-presets-head">
+            <div class="button-grid preset-actions">
+              <button data-preset="readme">README</button>
+              <button data-preset="profile">Profile README</button>
+              <button data-preset="docs">Docs Hub</button>
+              <button data-preset="roadmap">Roadmap</button>
+            </div>
           </div>
         </section>
 
-        <section class="panel">
-          <h2>Add block</h2>
-          <div class="block-types" id="addBlockButtons"></div>
+        <section class="panel sidebar-section is-collapsed" data-sidebar-section="add">
+          <button type="button" class="sidebar-section-toggle" aria-expanded="false" aria-controls="sidebar-add-body" id="sidebar-add-head">
+            <span class="sidebar-section-title">Add block</span>
+            <span class="sidebar-section-chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="sidebar-section-body" id="sidebar-add-body" role="region" aria-labelledby="sidebar-add-head">
+            <div class="block-types add-block-actions" id="addBlockButtons"></div>
+          </div>
         </section>
 
-        <section class="panel">
-          <h2>Export</h2>
-          <div class="button-grid">
-            <button class="primary" id="copyMarkdownBtn">Copy .md</button>
-            <button id="downloadMarkdownBtn">Download .md</button>
-            <button id="downloadJsonBtn">Download JSON</button>
-            <button id="loadJsonBtn">Load JSON</button>
+        <section class="panel sidebar-section is-collapsed" data-sidebar-section="export">
+          <button type="button" class="sidebar-section-toggle" aria-expanded="false" aria-controls="sidebar-export-body" id="sidebar-export-head">
+            <span class="sidebar-section-title">Export</span>
+            <span class="sidebar-section-chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="sidebar-section-body" id="sidebar-export-body" role="region" aria-labelledby="sidebar-export-head">
+            <div class="button-grid export-actions">
+              <button class="primary" id="copyMarkdownBtn">Copy .md</button>
+              <button id="downloadMarkdownBtn">Download .md</button>
+              <button id="downloadJsonBtn">Download JSON</button>
+              <button id="loadJsonBtn">Load JSON</button>
+            </div>
+            <input id="jsonInput" class="hidden" type="file" accept="application/json" />
           </div>
-          <input id="jsonInput" class="hidden" type="file" accept="application/json" />
         </section>
       </div>
     </aside>
@@ -338,8 +733,15 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
 
     <section class="preview">
       <div class="pane">
-        <div class="pill">Generated Markdown</div>
-        <pre id="markdownOutput" class="markdown-output"></pre>
+        <div class="panel sidebar-section preview-markdown-section is-collapsed">
+          <button type="button" class="sidebar-section-toggle" aria-expanded="false" aria-controls="preview-markdown-body" id="preview-markdown-head">
+            <span class="sidebar-section-title">Generated Markdown</span>
+            <span class="sidebar-section-chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="sidebar-section-body" id="preview-markdown-body" role="region" aria-labelledby="preview-markdown-head">
+            <pre id="markdownOutput" class="markdown-output"></pre>
+          </div>
+        </div>
         <div class="pill">Quick Preview</div>
         <div id="renderedPreview" class="preview-box"></div>
       </div>
@@ -364,7 +766,14 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
       custom: { label: 'Custom Markdown', hint: 'Paste your own block', defaults: () => ({ body: '## Custom Section\n\nAdd any markdown here.' }) }
     };
 
-    const state = { docName: 'README.md', docTitle: 'GitHub Dashboard', blocks: [] };
+    const state = {
+      docName: 'README.md',
+      docTitle: 'GitHub Dashboard',
+      blocks: [],
+      expandedBlockId: null,
+      sidebarExpandedSection: null,
+      previewMarkdownExpanded: false
+    };
 
     const blocksList = document.getElementById('blocksList');
     const markdownOutput = document.getElementById('markdownOutput');
@@ -384,6 +793,129 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;');
+    }
+
+    /** Only http(s) URLs in preview to avoid javascript: / data: surprises. */
+    function isSafeHttpUrl(s) {
+      const u = String(s || '').trim();
+      if (!/^https?:\/\//i.test(u)) return false;
+      try {
+        const parsed = new URL(u);
+        return parsed.protocol === 'http:' || parsed.protocol === 'https:';
+      } catch {
+        return false;
+      }
+    }
+
+    /** http(s), same-document #fragments, and simple mailto: links for preview. */
+    function isSafeLinkHref(href) {
+      const u = String(href || '').trim();
+      if (!u) return false;
+      if (isSafeHttpUrl(u)) return true;
+      if (u.startsWith('#')) {
+        if (u.length < 2) return false;
+        if (/javascript:/i.test(u) || /data:/i.test(u)) return false;
+        return /^#[^\s#"'<>`]+$/i.test(u);
+      }
+      if (/^mailto:/i.test(u)) {
+        const rest = u.slice(7).trim();
+        return rest.includes('@') && !/[\s"'<>()]/.test(rest);
+      }
+      return false;
+    }
+
+    /**
+     * Turn inline markdown [label](href) into <a>; escapes all other text.
+     * Skips image syntax ![...](...) via negative lookbehind.
+     */
+    function renderInlineMarkdownLinks(text) {
+      const s = String(text || '');
+      const re = /(?<!!)\[([^\]]+)\]\(([^)]+)\)/g;
+      let out = '';
+      let last = 0;
+      let m;
+      while ((m = re.exec(s)) !== null) {
+        out += escapeHtml(s.slice(last, m.index));
+        const label = m[1];
+        const href = m[2];
+        if (isSafeLinkHref(href)) {
+          const ht = href.trim();
+          const isFrag = ht.startsWith('#');
+          const rel = isFrag ? '' : ' rel="noopener noreferrer"';
+          const tgt = isFrag ? '' : ' target="_blank"';
+          out += `<a href="${escapeHtml(ht)}"${tgt}${rel}>${escapeHtml(label)}</a>`;
+        } else {
+          out += escapeHtml(m[0]);
+        }
+        last = m.index + m[0].length;
+      }
+      out += escapeHtml(s.slice(last));
+      return out;
+    }
+
+    /** Light cleanup before injecting HTML preview fragments (details, etc.). */
+    function stripUnsafeHtmlFragment(html) {
+      return String(html || '')
+        .replace(/<script\b[\s\S]*?<\/script>/gi, '')
+        .replace(/\s(on\w+)\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, ' ');
+    }
+
+    /**
+     * Our generator emits <details><summary>…</summary> then plain body lines; linkify body for preview.
+     * Unknown shapes are returned unchanged (after stripUnsafeHtmlFragment).
+     */
+    function processDetailsChunkForPreview(html) {
+      const stripped = stripUnsafeHtmlFragment(String(html || ''));
+      const m = stripped.match(/^<details([^>]*)>\s*<summary>([\s\S]*?)<\/summary>\s*([\s\S]*?)<\/details>\s*$/i);
+      if (!m) return stripped;
+      const attrs = m[1] || '';
+      const summaryInner = m[2];
+      const body = m[3].replace(/\s+$/, '');
+      const paras = [];
+      for (const line of body.split('\n')) {
+        if (!line.trim()) continue;
+        paras.push('<p>' + renderInlineMarkdownLinks(line) + '</p>');
+      }
+      return `<details${attrs}>\n<summary>${summaryInner}</summary>\n${paras.join('\n')}\n</details>`;
+    }
+
+    /**
+     * Renders list text after "- " for preview: task items, markdown links, or plain text.
+     */
+    function renderListItemBody(raw) {
+      const t = String(raw || '');
+      const task = t.match(/^\[([xX ])\]\s*(.+)$/);
+      if (task) {
+        const done = String(task[1]).trim().toLowerCase() === 'x';
+        return `<span class="md-task">${done ? '&#9745;' : '&#9744;'}</span> ${renderInlineMarkdownLinks(task[2])}`;
+      }
+      const link = t.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+      if (link && isSafeLinkHref(link[2])) {
+        const ht = link[2].trim();
+        const isFrag = ht.startsWith('#');
+        const rel = isFrag ? '' : ' rel="noopener noreferrer"';
+        const tgt = isFrag ? '' : ' target="_blank"';
+        return `<a href="${escapeHtml(ht)}"${tgt}${rel}>${escapeHtml(link[1])}</a>`;
+      }
+      return renderInlineMarkdownLinks(t);
+    }
+
+    /**
+     * GitHub-style shield / markdown button: [![alt](imageUrl)](href)
+     */
+    function renderLinkedImageLine(trimmed) {
+      const m = trimmed.match(/^\[!\[([^\]]*)\]\(([^)]+)\)\]\(([^)]+)\)$/);
+      if (!m || !isSafeHttpUrl(m[2]) || !isSafeHttpUrl(m[3])) return null;
+      const alt = m[1];
+      const imgSrc = m[2];
+      const href = m[3];
+      return `<div class="md-button-row"><a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer"><img src="${escapeHtml(imgSrc)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async"></a></div>`;
+    }
+
+    function renderStandaloneImageLine(trimmed) {
+      const m = trimmed.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+      if (!m || !isSafeHttpUrl(m[2])) return null;
+      return `<p><img src="${escapeHtml(m[2])}" alt="${escapeHtml(m[1])}" loading="lazy" decoding="async" style="max-width:100%;height:auto"></p>`;
     }
 
     function slugify(value) {
@@ -413,12 +945,19 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
 
     function addBlock(type) {
       if (!BLOCK_TYPES[type]) return;
-      state.blocks.push(makeBlock(type));
+      const block = makeBlock(type);
+      state.blocks.push(block);
+      state.expandedBlockId = block.id;
       render();
     }
 
     function removeBlock(id) {
+      const index = state.blocks.findIndex(block => block.id === id);
       state.blocks = state.blocks.filter(block => block.id !== id);
+      if (state.expandedBlockId === id) {
+        const next = state.blocks[index] || state.blocks[index - 1];
+        state.expandedBlockId = next ? next.id : null;
+      }
       render();
     }
 
@@ -442,7 +981,57 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
     }
 
     function saveState() {
-      localStorage.setItem('github-dashboard-builder-state-v2', JSON.stringify(state));
+      localStorage.setItem(
+        'github-dashboard-builder-state-v2',
+        JSON.stringify({
+          docName: state.docName,
+          docTitle: state.docTitle,
+          blocks: state.blocks,
+          expandedBlockId: state.expandedBlockId,
+          sidebarExpandedSection: state.sidebarExpandedSection,
+          previewMarkdownExpanded: state.previewMarkdownExpanded
+        })
+      );
+    }
+
+    function syncPreviewMarkdownSection() {
+      const el = document.querySelector('.preview-markdown-section');
+      if (!el) return;
+      const open = !!state.previewMarkdownExpanded;
+      el.classList.toggle('is-collapsed', !open);
+      const btn = el.querySelector('.sidebar-section-toggle');
+      if (btn) btn.setAttribute('aria-expanded', String(open));
+    }
+
+    function syncSidebarSections() {
+      const allowed = new Set(['presets', 'add', 'export']);
+      if (state.sidebarExpandedSection && !allowed.has(state.sidebarExpandedSection)) {
+        state.sidebarExpandedSection = null;
+      }
+      document.querySelectorAll('.sidebar [data-sidebar-section]').forEach(section => {
+        const id = section.dataset.sidebarSection;
+        const open = state.sidebarExpandedSection === id;
+        section.classList.toggle('is-collapsed', !open);
+        const btn = section.querySelector('.sidebar-section-toggle');
+        if (btn) btn.setAttribute('aria-expanded', String(open));
+      });
+    }
+
+    function ensureExpandedBlockId() {
+      if (!state.blocks.length) {
+        state.expandedBlockId = null;
+        return;
+      }
+      if (!state.expandedBlockId || !state.blocks.some(b => b.id === state.expandedBlockId)) {
+        state.expandedBlockId = state.blocks[0].id;
+      }
+    }
+
+    function setExpandedBlockId(id) {
+      if (!id || state.expandedBlockId === id) return;
+      state.expandedBlockId = id;
+      renderBlocks();
+      saveState();
     }
 
     function extractHeadingTitles() {
@@ -483,7 +1072,10 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
         const body = rows.map(row => '| ' + headers.map((_, i) => row[i] || '').join(' | ') + ' |').join('\n');
         return '## ' + (d.title || 'Table') + '\n\n' + [head, divider, body].filter(Boolean).join('\n');
       }
-      if (block.type === 'details') return `<details>\n<summary>${d.summary || 'See more'}</summary>\n\n${d.body || ''}\n\n</details>`;
+      if (block.type === 'details') {
+        const summary = escapeHtml(d.summary || 'See more');
+        return `<details>\n<summary>${summary}</summary>\n\n${d.body || ''}\n\n</details>`;
+      }
       if (block.type === 'code') return `## ${d.title || 'Code'}\n\n\`\`\`${d.language || ''}\n${d.body || ''}\n\`\`\``;
       if (block.type === 'image') return `## ${d.title || 'Image'}\n\n![${d.alt || ''}](${d.url || ''})`;
       if (block.type === 'quote') return splitLines(d.body).map(line => `> ${line}`).join('\n');
@@ -531,25 +1123,36 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
     function renderBlocks() {
       if (!state.blocks.length) {
         blocksList.innerHTML = '<div class="empty">No blocks yet. Add one from the left to start building your markdown dashboard.</div>';
+        state.expandedBlockId = null;
         return;
       }
 
-      blocksList.innerHTML = state.blocks.map((block, index) => `
-        <article class="block-card">
-          <header>
-            <div>
-              <strong>${BLOCK_TYPES[block.type].label}</strong>
-              <div class="meta">Block ${index + 1} · ${block.type}</div>
-            </div>
+      ensureExpandedBlockId();
+
+      blocksList.innerHTML = state.blocks.map((block, index) => {
+        const expanded = state.expandedBlockId === block.id;
+        const collapsedClass = expanded ? '' : ' is-collapsed';
+        return `
+        <article class="block-card${collapsedClass}" data-block-id="${block.id}">
+          <div class="block-card-header">
+            <button type="button" class="block-card-toggle" aria-expanded="${expanded}" aria-controls="block-body-${block.id}" id="block-head-${block.id}">
+              <span class="block-card-toggle-text">
+                <strong>${BLOCK_TYPES[block.type].label}</strong>
+                <span class="meta">Block ${index + 1} · ${block.type}</span>
+              </span>
+              <span class="block-card-chevron" aria-hidden="true">▾</span>
+            </button>
             <div class="toolbar">
               <button class="ghost" data-action="up" data-id="${block.id}">↑</button>
               <button class="ghost" data-action="down" data-id="${block.id}">↓</button>
               <button class="danger" data-action="delete" data-id="${block.id}">Delete</button>
             </div>
-          </header>
-          ${blockFields(block)}
-        </article>
-      `).join('');
+          </div>
+          <div class="block-card-body" id="block-body-${block.id}" role="region" aria-labelledby="block-head-${block.id}">
+            ${blockFields(block)}
+          </div>
+        </article>`;
+      }).join('');
     }
 
     function isTableLine(line) {
@@ -568,6 +1171,7 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
       let inCode = false;
       let inList = false;
       let tableBuffer = [];
+      let detailsBuffer = null;
 
       function closeList() {
         if (inList) {
@@ -592,12 +1196,12 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
         const bodyRows = isDividerRow(tableBuffer[1]) ? rows.slice(2) : rows.slice(1);
 
         let tableHtml = '<div style="overflow:auto"><table><thead><tr>';
-        tableHtml += header.map(cell => `<th>${escapeHtml(cell)}</th>`).join('');
+        tableHtml += header.map(cell => `<th>${renderInlineMarkdownLinks(cell)}</th>`).join('');
         tableHtml += '</tr></thead>';
 
         if (bodyRows.length) {
           tableHtml += '<tbody>';
-          tableHtml += bodyRows.map(row => '<tr>' + header.map((_, i) => `<td>${escapeHtml(row[i] || '')}</td>`).join('') + '</tr>').join('');
+          tableHtml += bodyRows.map(row => '<tr>' + header.map((_, i) => `<td>${renderInlineMarkdownLinks(row[i] || '')}</td>`).join('') + '</tr>').join('');
           tableHtml += '</tbody>';
         }
 
@@ -606,7 +1210,18 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
         tableBuffer = [];
       }
 
-      for (const line of lines) {
+      for (const rawLine of lines) {
+        const line = rawLine.replace(/\r$/, '');
+
+        if (detailsBuffer !== null) {
+          detailsBuffer.push(line);
+          if (/^<\/details>\s*$/i.test(line.trim())) {
+            html.push(processDetailsChunkForPreview(detailsBuffer.join('\n')));
+            detailsBuffer = null;
+          }
+          continue;
+        }
+
         if (line.startsWith('```')) {
           flushTable();
           closeList();
@@ -638,7 +1253,7 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
             html.push('<ul>');
             inList = true;
           }
-          html.push('<li>' + escapeHtml(line.replace(/^- /, '')) + '</li>');
+          html.push('<li>' + renderListItemBody(line.replace(/^- /, '')) + '</li>');
           continue;
         }
 
@@ -649,22 +1264,48 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
         } else if (line === '---') {
           html.push('<hr style="border:none;border-top:1px solid #2c3243; margin:20px 0;">');
         } else if (line.startsWith('# ')) {
-          html.push('<h1>' + escapeHtml(line.slice(2)) + '</h1>');
+          html.push('<h1>' + renderInlineMarkdownLinks(line.slice(2)) + '</h1>');
         } else if (line.startsWith('## ')) {
-          html.push('<h2>' + escapeHtml(line.slice(3)) + '</h2>');
+          html.push('<h2>' + renderInlineMarkdownLinks(line.slice(3)) + '</h2>');
         } else if (line.startsWith('### ')) {
-          html.push('<h3>' + escapeHtml(line.slice(4)) + '</h3>');
+          html.push('<h3>' + renderInlineMarkdownLinks(line.slice(4)) + '</h3>');
         } else if (line.startsWith('> ')) {
-          html.push('<blockquote>' + escapeHtml(line.slice(2)) + '</blockquote>');
-        } else if (line.startsWith('<details>') || line.startsWith('<summary>') || line.startsWith('</details>')) {
-          html.push('<div><code>' + escapeHtml(line) + '</code></div>');
+          html.push('<blockquote>' + renderInlineMarkdownLinks(line.slice(2)) + '</blockquote>');
+        } else if (/^<details\b/i.test(line.trimStart())) {
+          flushTable();
+          closeList();
+          const trimmed = line.trim();
+          if (/<\/details>/i.test(trimmed)) {
+            html.push(processDetailsChunkForPreview(trimmed));
+          } else {
+            detailsBuffer = [line];
+          }
         } else {
-          html.push('<p>' + escapeHtml(line) + '</p>');
+          const trimmed = line.trim();
+          const linkedImg = renderLinkedImageLine(trimmed);
+          if (linkedImg) {
+            html.push(linkedImg);
+          } else {
+            const soloImg = renderStandaloneImageLine(trimmed);
+            if (soloImg) {
+              html.push(soloImg);
+            } else {
+              html.push('<p>' + renderInlineMarkdownLinks(line) + '</p>');
+            }
+          }
         }
       }
 
       flushTable();
       closeList();
+      if (detailsBuffer !== null) {
+        html.push(
+          '<p class="small">Unclosed &lt;details&gt; block:</p><pre><code>' +
+            escapeHtml(detailsBuffer.join('\n')) +
+            '</code></pre>'
+        );
+        detailsBuffer = null;
+      }
       renderedPreview.innerHTML = html.join('\n') || '<p class="small">Nothing yet.</p>';
     }
 
@@ -679,6 +1320,8 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
       state.docTitle = docTitleInput.value.trim() || 'GitHub Dashboard';
       renderBlocks();
       renderMarkdownOnly();
+      syncSidebarSections();
+      syncPreviewMarkdownSection();
       saveState();
     }
 
@@ -747,11 +1390,39 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
 
       docNameInput.value = state.docName;
       docTitleInput.value = state.docTitle;
+      state.expandedBlockId = state.blocks[0]?.id || null;
+      state.sidebarExpandedSection = null;
+      state.previewMarkdownExpanded = false;
       render();
     }
 
     function wireEvents() {
       addBlockButtons.innerHTML = Object.entries(BLOCK_TYPES).map(([type, info]) => `<button data-type="${type}">${info.label}<span>${info.hint}</span></button>`).join('');
+
+      const sidebarRoot = document.querySelector('.sidebar');
+      if (sidebarRoot) {
+        sidebarRoot.addEventListener('click', event => {
+          const btn = event.target.closest('.sidebar-section-toggle');
+          if (!btn) return;
+          const section = btn.closest('[data-sidebar-section]');
+          if (!section) return;
+          const id = section.dataset.sidebarSection;
+          state.sidebarExpandedSection = state.sidebarExpandedSection === id ? null : id;
+          syncSidebarSections();
+          saveState();
+        });
+      }
+
+      const previewRoot = document.querySelector('.preview');
+      if (previewRoot) {
+        previewRoot.addEventListener('click', event => {
+          const btn = event.target.closest('.preview-markdown-section .sidebar-section-toggle');
+          if (!btn) return;
+          state.previewMarkdownExpanded = !state.previewMarkdownExpanded;
+          syncPreviewMarkdownSection();
+          saveState();
+        });
+      }
 
       addBlockButtons.addEventListener('click', event => {
         const button = event.target.closest('button[data-type]');
@@ -768,12 +1439,26 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
       });
 
       blocksList.addEventListener('click', event => {
+        const toggle = event.target.closest('.block-card-toggle');
+        if (toggle) {
+          const card = toggle.closest('[data-block-id]');
+          if (card?.dataset.blockId) setExpandedBlockId(card.dataset.blockId);
+          return;
+        }
         const button = event.target.closest('button[data-action]');
         if (!button) return;
         const { action, id } = button.dataset;
         if (action === 'delete') removeBlock(id);
         if (action === 'up') moveBlock(id, 'up');
         if (action === 'down') moveBlock(id, 'down');
+      });
+
+      blocksList.addEventListener('focusin', event => {
+        const el = event.target;
+        if (!el.matches('input, textarea, select')) return;
+        const card = el.closest('[data-block-id]');
+        if (!card?.dataset.blockId) return;
+        setExpandedBlockId(card.dataset.blockId);
       });
 
       docNameInput.addEventListener('input', render);
@@ -816,6 +1501,14 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
             state.docName = parsed.docName || 'README.md';
             state.docTitle = parsed.docTitle || 'GitHub Dashboard';
             state.blocks = parsed.blocks;
+            state.expandedBlockId =
+              parsed.expandedBlockId && state.blocks.some(b => b.id === parsed.expandedBlockId)
+                ? parsed.expandedBlockId
+                : state.blocks[0]?.id || null;
+            const side = parsed.sidebarExpandedSection;
+            state.sidebarExpandedSection =
+              side && ['presets', 'add', 'export'].includes(side) ? side : null;
+            state.previewMarkdownExpanded = Boolean(parsed.previewMarkdownExpanded);
             docNameInput.value = state.docName;
             docTitleInput.value = state.docTitle;
             render();
@@ -840,6 +1533,14 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
         state.docName = parsed.docName || 'README.md';
         state.docTitle = parsed.docTitle || 'GitHub Dashboard';
         state.blocks = parsed.blocks;
+        state.expandedBlockId =
+          parsed.expandedBlockId && state.blocks.some(b => b.id === parsed.expandedBlockId)
+            ? parsed.expandedBlockId
+            : state.blocks[0]?.id || null;
+        const side = parsed.sidebarExpandedSection;
+        state.sidebarExpandedSection =
+          side && ['presets', 'add', 'export'].includes(side) ? side : null;
+        state.previewMarkdownExpanded = Boolean(parsed.previewMarkdownExpanded);
         docNameInput.value = state.docName;
         docTitleInput.value = state.docTitle;
         render();
