@@ -317,17 +317,17 @@ body.neo-landing pre code {
   color: inherit;
 }
 
-body.neo-landing .preview-box,
-body.neo-landing .preview,
-body.neo-landing .previewbox,
-body.neo-landing .example,
-body.neo-landing .options-box,
-body.neo-landing .empty,
-body.neo-landing .toggle-row,
-body.neo-landing .field-card,
-body.neo-landing .control,
-body.neo-landing .upload-note,
-body.neo-landing .preview-group {
+body.neo-landing:not(.neo-dash) .preview-box,
+body.neo-landing:not(.neo-dash) .preview,
+body.neo-landing:not(.neo-dash) .previewbox,
+body.neo-landing:not(.neo-dash) .example,
+body.neo-landing:not(.neo-dash) .options-box,
+body.neo-landing:not(.neo-dash) .empty,
+body.neo-landing:not(.neo-dash) .toggle-row,
+body.neo-landing:not(.neo-dash) .field-card,
+body.neo-landing:not(.neo-dash) .control,
+body.neo-landing:not(.neo-dash) .upload-note,
+body.neo-landing:not(.neo-dash) .preview-group {
   background: #f6f6f6;
   border: 2px solid var(--neo-black);
   border-radius: 0;
@@ -501,11 +501,55 @@ body.neo-landing.issue-tool h2 {
 }
 
 /* GitHub Dashboard Builder */
+body.neo-landing.neo-dash .app {
+  display: grid;
+  grid-template-columns: minmax(300px, min(24vw, 420px)) minmax(0, 1fr) minmax(0, 1fr);
+  min-height: 100vh;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 1180px) {
+  body.neo-landing.neo-dash .app {
+    grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
+  }
+
+  body.neo-landing.neo-dash .preview {
+    grid-column: 1 / -1;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  body.neo-landing.neo-dash .preview .pane {
+    height: auto;
+    min-height: 40vh;
+  }
+}
+
+@media (max-width: 760px) {
+  body.neo-landing.neo-dash .app {
+    grid-template-columns: 1fr;
+  }
+
+  body.neo-landing.neo-dash .sidebar,
+  body.neo-landing.neo-dash .builder,
+  body.neo-landing.neo-dash .preview {
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  body.neo-landing.neo-dash .pane {
+    height: auto;
+  }
+}
+
 body.neo-landing.neo-dash .hero {
   padding: 20px;
   background: var(--neo-white);
   border: var(--neo-border);
   box-shadow: var(--neo-shadow);
+  color: var(--neo-black);
 }
 
 body.neo-landing.neo-dash .hero h1 {
@@ -548,11 +592,37 @@ body.neo-landing.neo-dash .preview {
 }
 
 body.neo-landing.neo-dash .sidebar-section-toggle {
-  border: 2px solid rgba(255, 255, 255, 0.25);
+  border: 2px solid var(--neo-black);
   border-radius: 0;
-  color: var(--neo-white);
+  color: var(--neo-black);
+  background: #f4f4f4;
 }
 
 body.neo-landing.neo-dash .sidebar-section-toggle:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: #eaeaea;
+}
+
+body.neo-landing.neo-dash .sidebar-section-title {
+  color: var(--neo-black);
+}
+
+body.neo-landing.neo-dash .sidebar-section-chevron {
+  color: #333;
+}
+
+body.neo-landing.neo-dash .builder .pill {
+  color: var(--neo-black);
+  background: #f0f0f0;
+  border: 2px solid var(--neo-black);
+}
+
+body.neo-landing.neo-dash .preview .pill {
+  color: var(--neo-black);
+  background: #f0f0f0;
+  border: 2px solid var(--neo-black);
+}
+
+body.neo-landing.neo-dash .empty {
+  color: #555;
+  border-color: var(--neo-black);
 }
