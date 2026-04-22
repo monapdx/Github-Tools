@@ -188,6 +188,30 @@ body.neo-landing .app {
   padding: 28px 18px 40px;
 }
 
+/* Wider desktop layouts for dense generators */
+body.neo-landing.page-anchor-generator .wrap,
+body.neo-landing.page-button-generator .wrap,
+body.neo-landing.issue-tool .wrap {
+  max-width: min(96vw, 1680px);
+  padding-inline: clamp(18px, 2.4vw, 40px);
+}
+
+@media (min-width: 1400px) {
+  body.neo-landing.page-anchor-generator .tool-grid.grid-equal {
+    gap: 26px;
+  }
+
+  body.neo-landing.page-button-generator .tool-grid {
+    grid-template-columns: minmax(0, 1.32fr) minmax(360px, 0.68fr);
+    gap: 26px;
+  }
+
+  body.neo-landing.issue-tool .wrap {
+    grid-template-columns: minmax(0, 1.18fr) minmax(420px, 0.82fr);
+    gap: 28px;
+  }
+}
+
 body.neo-landing .tool-hero,
 body.neo-landing .hero,
 body.neo-landing .header {
