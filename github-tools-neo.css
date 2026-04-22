@@ -625,4 +625,156 @@ body.neo-landing.neo-dash .preview .pill {
 body.neo-landing.neo-dash .empty {
   color: #555;
   border-color: var(--neo-black);
+  background: #fafafa;
+  border-style: dashed;
+  border-width: 2px;
+  border-radius: 0;
+}
+
+/* Builder + preview columns: match sidebar neo-brutalist panels */
+body.neo-landing.neo-dash .builder .pane,
+body.neo-landing.neo-dash .preview .pane {
+  color: var(--neo-black);
+}
+
+body.neo-landing.neo-dash .block-card {
+  background: var(--neo-white);
+  border: var(--neo-border);
+  border-radius: 0;
+  box-shadow: var(--neo-shadow-sm);
+  color: var(--neo-black);
+}
+
+body.neo-landing.neo-dash .block-card-toggle {
+  color: var(--neo-black);
+}
+
+body.neo-landing.neo-dash .block-card-toggle:hover {
+  background: #eaeaea;
+}
+
+body.neo-landing.neo-dash .block-card-toggle-text strong {
+  color: var(--neo-black);
+}
+
+body.neo-landing.neo-dash .block-card-chevron {
+  color: #444;
+}
+
+body.neo-landing.neo-dash .meta {
+  color: #555;
+}
+
+body.neo-landing.neo-dash .block-card .toolbar button {
+  border: 2px solid var(--neo-black);
+  background: #f0f0f0;
+  color: var(--neo-black);
+  border-radius: 0;
+  font-family: var(--neo-font);
+}
+
+body.neo-landing.neo-dash .block-card .toolbar button:hover {
+  background: #fff;
+  border-color: var(--neo-black);
+  transform: translate(-1px, -1px);
+}
+
+body.neo-landing.neo-dash .block-card button.danger {
+  background: #ffe4ea;
+  color: var(--neo-black);
+  border: 2px solid var(--neo-black);
+}
+
+body.neo-landing.neo-dash .block-card .field input,
+body.neo-landing.neo-dash .block-card .field textarea,
+body.neo-landing.neo-dash .block-card .field select {
+  background: var(--neo-white);
+  color: var(--neo-black);
+  border: 2px solid var(--neo-black);
+  border-radius: 0;
+}
+
+body.neo-landing.neo-dash .markdown-output,
+body.neo-landing.neo-dash pre.markdown-output {
+  background: #f6f6f6;
+  color: var(--neo-black);
+  border: 2px solid var(--neo-black);
+  border-radius: 0;
+  box-shadow: 3px 3px 0 var(--neo-lime);
+  font-family: var(--neo-font);
+}
+
+body.neo-landing.neo-dash .preview-box {
+  background: var(--neo-white);
+  color: var(--neo-black);
+  border: var(--neo-border);
+  border-radius: 0;
+  box-shadow: var(--neo-shadow-sm);
+}
+
+body.neo-landing.neo-dash .preview-box h1,
+body.neo-landing.neo-dash .preview-box h2,
+body.neo-landing.neo-dash .preview-box h3 {
+  color: var(--neo-black);
+}
+
+body.neo-landing.neo-dash .preview-box p,
+body.neo-landing.neo-dash .preview-box li {
+  color: var(--neo-black);
+}
+
+body.neo-landing.neo-dash .preview-box code {
+  background: rgba(0, 0, 0, 0.08);
+  color: var(--neo-black);
+}
+
+body.neo-landing.neo-dash .preview-box a {
+  color: var(--neo-pink);
+}
+
+body.neo-landing.neo-dash .preview-box a:hover {
+  color: var(--neo-black);
+}
+
+body.neo-landing.neo-dash .preview-box pre {
+  background: #f0f0f0;
+  color: var(--neo-black);
+  border: 2px solid var(--neo-black);
+  padding: 12px;
+  border-radius: 0;
+  overflow: auto;
+}
+
+body.neo-landing.neo-dash .preview-box pre code {
+  background: transparent;
+  color: inherit;
+}
+
+body.neo-landing.neo-dash .preview-box table {
+  border: 2px solid var(--neo-black);
+  border-radius: 0;
+}
+
+body.neo-landing.neo-dash .preview-box th,
+body.neo-landing.neo-dash .preview-box td {
+  border-color: #ccc;
+  color: var(--neo-black);
+}
+
+body.neo-landing.neo-dash .preview-box thead th {
+  background: #eaeaea;
+}
+
+body.neo-landing.neo-dash .preview-box details {
+  background: #f6f6f6;
+  border: 2px solid var(--neo-black);
+  border-radius: 0;
+}
+
+body.neo-landing.neo-dash .preview-box details > summary {
+  color: var(--neo-black);
+}
+
+body.neo-landing.neo-dash .preview-box details > summary::before {
+  color: #444;
 }
