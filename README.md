@@ -1,4 +1,4 @@
-[![Table of Contents](https://img.shields.io/badge/%F0%9F%93%9C%20Table%20of%20Contents-1f6feb?style=for-the-badge)](https://monapdx.github.io/Github-Tools/github-anchor-generator.html) [![Buttons](https://img.shields.io/badge/%E2%9C%85%20Buttons-1f6feb?style=for-the-badge)](https://monapdx.github.io/Github-Tools/github-button-generator.html) [![Links](https://img.shields.io/badge/%F0%9F%94%97%20Links-1f6feb?style=for-the-badge)](https://monapdx.github.io/Github-Tools/github-link-generator.html) [![Topics](https://img.shields.io/badge/%F0%9F%93%8C%20Topics-1f6feb?style=for-the-badge)](https://monapdx.github.io/Github-Tools/github-topic-cloud.html) [![Issues](https://img.shields.io/badge/%E2%9C%A8%20Issues-1f6feb?style=for-the-badge)](https://monapdx.github.io/Github-Tools/issue-template-generator.html) [![YAML Forms](https://img.shields.io/badge/%F0%9F%93%9A%20YAML%20Forms-1f6feb?style=for-the-badge)](https://monapdx.github.io/Github-Tools/yaml-form-builder.html)
+[![Table of Contents](https://img.shields.io/badge/%F0%9F%93%9C%20Table%20of%20Contents-1f6feb?style=for-the-badge)](https://monapdx.github.io/Github-Tools/github-anchor-generator.html) [![Buttons](https://img.shields.io/badge/%E2%9C%85%20Buttons-1f6feb?style=for-the-badge)](https://monapdx.github.io/Github-Tools/github-button-generator.html) [![Links](https://img.shields.io/badge/%F0%9F%94%97%20Links-1f6feb?style=for-the-badge)](https://monapdx.github.io/github-power-links/) [![Topics](https://img.shields.io/badge/%F0%9F%93%8C%20Topics-1f6feb?style=for-the-badge)](https://monapdx.github.io/Github-Tools/github-topic-cloud.html) [![Issues](https://img.shields.io/badge/%E2%9C%A8%20Issues-1f6feb?style=for-the-badge)](https://monapdx.github.io/Github-Tools/issue-template-generator.html) [![YAML Forms](https://img.shields.io/badge/%F0%9F%93%9A%20YAML%20Forms-1f6feb?style=for-the-badge)](https://monapdx.github.io/Github-Tools/yaml-form-builder.html)
 
 # 🧰 GitHub Tools Suite
 
@@ -39,7 +39,7 @@ Create Shields.io badge buttons with Markdown, HTML, and direct URLs.
 
 ### 🔗 GitHub Link Generator
 
-[![Links](https://img.shields.io/badge/%F0%9F%94%97%20Links-1f6feb?style=for-the-badge)](https://monapdx.github.io/Github-Tools/github-link-generator.html)
+[![Links](https://img.shields.io/badge/%F0%9F%94%97%20Links-1f6feb?style=for-the-badge)](https://monapdx.github.io/github-power-links/)
 
 Quickly build links for repos, issues, templates, files, comparisons, and more.
 
