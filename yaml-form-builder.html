@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="./github-tools-common.css" />
   <link rel="stylesheet" href="./github-tools-neo.css" />
 </head>
-<body class="neo-landing">
+<body class="neo-landing page-yaml-form">
   <div class="app">
     <section class="tool-hero">
       <div class="tool-kicker">GitHub Tools Suite</div>
@@ -76,7 +76,8 @@
     const state = {
       title: "",
       description: "",
-      fields: []
+      fields: [],
+      expandedFieldId: null
     };
 
     const els = {
@@ -159,7 +160,12 @@
     }
 
     function renderFieldsList() {
+      if (state.expandedFieldId && !state.fields.some(f => f.id === state.expandedFieldId)) {
+        state.expandedFieldId = null;
+      }
+
       if (!state.fields.length) {
+        state.expandedFieldId = null;
         els.fieldsList.innerHTML = `
           <div class="empty">
             No fields yet. Add one to start building your form.
@@ -168,9 +174,13 @@
         return;
       }
 
-      els.fieldsList.innerHTML = state.fields.map((field, index) => `
-        <div class="field-card" data-id="${field.id}">
-          <div class="field-top">
+      els.fieldsList.innerHTML = state.fields.map((field, index) => {
+        const expanded = state.expandedFieldId === field.id;
+        const cardState = expanded ? 'is-expanded' : 'is-collapsed';
+        const topTitle = expanded ? 'Click header to collapse' : 'Click header to expand and edit';
+        return `
+        <div class="field-card ${cardState}" data-id="${field.id}">
+          <div class="field-top" title="${topTitle}">
             <div>
               <div class="field-name">${field.label || 'Untitled Field'}</div>
               <div class="field-meta">${field.name || 'unnamed'} · ${field.type}</div>
@@ -224,7 +234,8 @@
             ` : ''}
           </div>
         </div>
-      `).join('');
+      `;
+      }).join('');
     }
 
     function renderPreview() {
@@ -326,6 +337,7 @@
     }
 
     function loadSample() {
+      state.expandedFieldId = null;
       state.title = 'Bug Report';
       state.description = 'Use this form to report a bug clearly and consistently.';
       state.fields = [
@@ -341,6 +353,7 @@
     }
 
     function clearAll() {
+      state.expandedFieldId = null;
       state.title = '';
       state.description = '';
       state.fields = [];
@@ -380,7 +393,9 @@
     els.formDescription.addEventListener('input', syncTopLevelInputs);
 
     els.addFieldBtn.addEventListener('click', () => {
-      state.fields.push(createField({ label: `Field ${state.fields.length + 1}`, name: `field_${state.fields.length + 1}` }));
+      const next = createField({ label: `Field ${state.fields.length + 1}`, name: `field_${state.fields.length + 1}` });
+      state.fields.push(next);
+      state.expandedFieldId = next.id;
       renderAll();
     });
 
@@ -441,18 +456,27 @@
       const index = state.fields.findIndex(f => f.id === card.dataset.id);
       if (index === -1) return;
 
-      if (event.target.classList.contains('delete-field-btn')) {
-        state.fields.splice(index, 1);
-        renderAll();
+      if (event.target.closest('.inline-actions')) {
+        if (event.target.classList.contains('delete-field-btn')) {
+          if (state.expandedFieldId === card.dataset.id) state.expandedFieldId = null;
+          state.fields.splice(index, 1);
+          renderAll();
+        }
+
+        if (event.target.classList.contains('move-up-btn') && index > 0) {
+          [state.fields[index - 1], state.fields[index]] = [state.fields[index], state.fields[index - 1]];
+          renderAll();
+        }
+
+        if (event.target.classList.contains('move-down-btn') && index < state.fields.length - 1) {
+          [state.fields[index + 1], state.fields[index]] = [state.fields[index], state.fields[index + 1]];
+          renderAll();
+        }
+        return;
       }
 
-      if (event.target.classList.contains('move-up-btn') && index > 0) {
-        [state.fields[index - 1], state.fields[index]] = [state.fields[index], state.fields[index - 1]];
-        renderAll();
-      }
-
-      if (event.target.classList.contains('move-down-btn') && index < state.fields.length - 1) {
-        [state.fields[index + 1], state.fields[index]] = [state.fields[index], state.fields[index + 1]];
+      if (event.target.closest('.field-top')) {
+        state.expandedFieldId = state.expandedFieldId === card.dataset.id ? null : card.dataset.id;
         renderAll();
       }
     });

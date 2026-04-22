@@ -778,3 +778,58 @@ body.neo-landing.neo-dash .preview-box details > summary {
 body.neo-landing.neo-dash .preview-box details > summary::before {
   color: #444;
 }
+
+/* YAML Form Builder — full-width layout + accordion field cards */
+body.neo-landing.page-yaml-form .app {
+  max-width: none;
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px clamp(16px, 2.5vw, 40px) 48px;
+  box-sizing: border-box;
+}
+
+body.neo-landing.page-yaml-form .layout {
+  display: grid;
+  grid-template-columns: minmax(300px, 1.2fr) minmax(280px, 1fr) minmax(260px, 0.95fr);
+  gap: clamp(16px, 2vw, 28px);
+  align-items: start;
+}
+
+@media (max-width: 1200px) {
+  body.neo-landing.page-yaml-form .layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  body.neo-landing.page-yaml-form .layout > .panel:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 760px) {
+  body.neo-landing.page-yaml-form .layout {
+    grid-template-columns: 1fr;
+  }
+
+  body.neo-landing.page-yaml-form .layout > .panel:nth-child(3) {
+    grid-column: auto;
+  }
+}
+
+body.neo-landing.page-yaml-form .field-card.is-collapsed .field-controls {
+  display: none;
+}
+
+body.neo-landing.page-yaml-form .field-top {
+  user-select: none;
+}
+
+body.neo-landing.page-yaml-form .field-card.is-collapsed .field-top {
+  cursor: pointer;
+}
+
+body.neo-landing.page-yaml-form .field-card.is-expanded .field-top {
+  cursor: pointer;
+  padding-bottom: 10px;
+  margin-bottom: 8px;
+  border-bottom: 2px solid var(--neo-black);
+}
