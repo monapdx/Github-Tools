@@ -234,8 +234,21 @@ textarea {
   display: grid;
   gap: 14px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* Avoid stretching short columns/inputs to match a taller sibling column or row. */
+  align-items: start;
 }
 .controls { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+/* Short hex / keyword values — keep inputs compact next to full-width fields. */
+input.input-hex {
+  width: 100%;
+  max-width: 12rem;
+}
+
+/* Two-column tool layout: don’t let the short column’s rows grow to fill the tall column’s height. */
+.form-grid > .stack {
+  align-content: start;
+}
 .row,
 .actions,
 .toolbar,
