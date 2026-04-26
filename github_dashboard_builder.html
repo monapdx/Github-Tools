@@ -260,11 +260,11 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
       background: #fff08a;
     }
 
-    .preset-actions [data-preset="docs"] {
+    .preset-actions [data-preset="faq"] {
       background: var(--brutal-lime);
     }
 
-    .preset-actions [data-preset="docs"]:hover {
+    .preset-actions [data-preset="faq"]:hover {
       background: #def65a;
     }
 
@@ -694,7 +694,7 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
             <div class="button-grid preset-actions">
               <button data-preset="readme">README</button>
               <button data-preset="profile">Profile README</button>
-              <button data-preset="docs">Docs Hub</button>
+              <button data-preset="faq">FAQ</button>
               <button data-preset="roadmap">Roadmap</button>
             </div>
           </div>
@@ -1369,15 +1369,27 @@ img, video, canvas, svg { max-width: 100%; height: auto; }
         ];
       }
 
-      if (name === 'docs') {
-        state.docName = 'docs-index.md';
-        state.docTitle = 'Docs Hub';
+      if (name === 'faq') {
+        state.docName = 'FAQ.md';
+        state.docTitle = 'Frequently Asked Questions';
+        const faqQa = () => ({ summary: 'Question goes here?', body: 'Answer goes here.' });
+        const badgeRows = [
+          'Signup|#signup|https://img.shields.io/badge/%F0%9F%93%9DSignup-111111?style=for-the-badge',
+          'Errors|#errors-troubleshooting|https://img.shields.io/badge/%E2%9D%93Errors-111111?style=for-the-badge',
+          'Installation|#installation|https://img.shields.io/badge/%F0%9F%9B%A0%EF%B8%8FInstallation-111111?style=for-the-badge',
+          'Account Management|#account-management|https://img.shields.io/badge/%E2%9C%85Account%20Management-111111?style=for-the-badge'
+        ].join('\n');
         state.blocks = [
-          makeBlock('heading', { text: 'Documentation Hub', body: 'Start here to find setup instructions, guides, references, and project links.' }),
-          makeBlock('toc'),
-          makeBlock('table', { title: 'Guides', headers: 'Guide|Purpose|Link', rows: 'Getting Started|Initial setup|#getting-started\nContributing|How to help|#contributing\nFAQ|Common questions|#faq' }),
-          makeBlock('details', { summary: 'FAQ', body: '- Question one\n- Question two\n- Question three' }),
-          makeBlock('paragraph', { title: 'Resources', body: '- Design assets\n- Screenshots\n- Sample configs' })
+          makeBlock('heading', { level: 1, text: 'Frequently Asked Questions', body: '' }),
+          makeBlock('buttons', { items: badgeRows }),
+          makeBlock('paragraph', { title: 'Signup', body: '' }),
+          ...Array.from({ length: 5 }, () => makeBlock('details', { ...faqQa() })),
+          makeBlock('paragraph', { title: 'Errors & Troubleshooting', body: '' }),
+          ...Array.from({ length: 4 }, () => makeBlock('details', { ...faqQa() })),
+          makeBlock('paragraph', { title: 'Installation', body: '' }),
+          ...Array.from({ length: 3 }, () => makeBlock('details', { ...faqQa() })),
+          makeBlock('paragraph', { title: 'Account Management', body: '' }),
+          ...Array.from({ length: 3 }, () => makeBlock('details', { ...faqQa() }))
         ];
       }
 
