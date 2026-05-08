@@ -1,188 +1,436 @@
 <!DOCTYPE html>
-<html lang="en" class="neo-landing-root">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>README TOC + Anchor Generator</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./github-tools-common.css" />
-  <link rel="stylesheet" href="./github-tools-neo.css" />
+  <style>
+    :root {
+      --ink: #111111;
+      --paper: #fff8fd;
+      --panel: #ffffff;
+      --lime: #c8ff00;
+      --pink: #ff3eb5;
+      --aqua: #00d7ff;
+      --purple: #7c3cff;
+      --shadow: 8px 8px 0 var(--ink);
+      --shadow-sm: 4px 4px 0 var(--ink);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    img, video, canvas, svg { max-width: 100%; height: auto; }
+
+    body {
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255, 62, 181, 0.25) 0 11rem, transparent 11.25rem),
+        radial-gradient(circle at 85% 10%, rgba(0, 215, 255, 0.28) 0 10rem, transparent 10.25rem),
+        linear-gradient(135deg, #fff8fd 0%, #effcff 50%, #fbffe0 100%);
+      min-height: 100vh;
+    }
+
+    .wrap {
+      max-width: 76rem;
+      margin: auto;
+      padding: 2rem;
+    }
+
+    .hero {
+      border: 4px solid var(--ink);
+      background: var(--lime);
+      box-shadow: var(--shadow);
+      padding: 1.4rem;
+      margin-bottom: 2rem;
+      transform: rotate(-0.35deg);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.2rem, 5vw, 4.5rem);
+      line-height: 0.92;
+      letter-spacing: -0.08em;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      max-width: 48rem;
+      margin: 0.85rem 0 0;
+      font-size: 1.05rem;
+      font-weight: 800;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--panel);
+      padding: 1.2rem;
+      border: 4px solid var(--ink);
+      box-shadow: var(--shadow);
+      border-radius: 0;
+    }
+
+    .card:nth-child(1) { border-top: 1rem solid var(--pink); }
+    .card:nth-child(2) { border-top: 1rem solid var(--aqua); }
+
+    h3 {
+      display: inline-block;
+      margin: 0 0 1rem;
+      padding: 0.35rem 0.55rem;
+      background: var(--ink);
+      color: white;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    input[type="file"] {
+      width: 100%;
+      padding: 0.75rem;
+      background: linear-gradient(135deg, #fff8fd 0%, #f7ffe0 100%);
+      border: 4px solid var(--ink);
+      box-shadow: var(--shadow);
+      font-weight: 950;
+      font-size: 0.95rem;
+      color: var(--ink);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    input[type="file"]:hover {
+      background: linear-gradient(135deg, #00d7ff 0%, #c8ff00 100%);
+    }
+
+    input[type="file"]::file-selector-button {
+      margin-right: 1rem;
+      padding: 0.7rem 1rem;
+      border: 3px solid var(--ink);
+      background: var(--pink);
+      color: var(--ink);
+      font-weight: 1000;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+    }
+
+    input[type="file"]::file-selector-button:hover {
+      background: var(--aqua);
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--ink);
+    }
+
+    input[type="file"]::file-selector-button:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--ink);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 21rem;
+      padding: 0.9rem;
+      border-radius: 0;
+      border: 3px solid var(--ink);
+      background: #101010;
+      color: var(--lime);
+      box-shadow: inset 4px 4px 0 rgba(255,255,255,0.12);
+      font-family: Consolas, Monaco, monospace;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      resize: vertical;
+    }
+
+    button {
+      padding: 0.65rem 0.9rem;
+      border-radius: 0;
+      border: 3px solid var(--ink);
+      background: #ffffff;
+      color: var(--ink);
+      cursor: pointer;
+      font-weight: 950;
+      text-transform: uppercase;
+      box-shadow: var(--shadow-sm);
+      transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+    }
+
+    button:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--ink);
+      background: var(--aqua);
+    }
+
+    button:active {
+      transform: translate(3px, 3px);
+      box-shadow: 1px 1px 0 var(--ink);
+    }
+
+    .primary {
+      background: var(--pink);
+      color: var(--ink);
+      border: 3px solid var(--ink);
+      font-size: 1rem;
+    }
+
+    pre {
+      min-height: 12rem;
+      background: #101010;
+      color: var(--aqua);
+      padding: 0.9rem;
+      border-radius: 0;
+      border: 3px solid var(--ink);
+      overflow: auto;
+      font-family: Consolas, Monaco, monospace;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .anchors {
+      margin-top: 0.9rem;
+      max-height: 16rem;
+      overflow: auto;
+      border: 3px solid var(--ink);
+      background: #fff;
+    }
+
+    .anchor-item {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      gap: 0.75rem;
+      align-items: center;
+      padding: 0.7rem;
+      border-bottom: 3px solid var(--ink);
+      font-weight: 800;
+    }
+
+    .anchor-item:nth-child(odd) { background: #f7ffe0; }
+    .anchor-item:nth-child(even) { background: #fff0fb; }
+    .anchor-item:last-child { border-bottom: 0; }
+
+    .anchor-item span {
+      overflow-wrap: anywhere;
+    }
+
+    .anchor-item code {
+      display: inline-block;
+      padding: 0.25rem 0.4rem;
+      background: var(--lime);
+      border: 2px solid var(--ink);
+      font-size: 0.85rem;
+      max-width: 15rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .toast {
+      position: fixed;
+      right: 1.25rem;
+      bottom: 1.25rem;
+      z-index: 9999;
+      max-width: min(22rem, calc(100vw - 2rem));
+      padding: 0.9rem 1rem;
+      background: var(--lime);
+      border: 4px solid var(--ink);
+      box-shadow: var(--shadow-sm);
+      color: var(--ink);
+      font-weight: 950;
+      text-transform: uppercase;
+      transform: translateY(150%);
+      opacity: 0;
+      transition: transform 180ms ease, opacity 180ms ease;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast.error {
+      background: var(--pink);
+      color: var(--ink);
+    }
+
+    @media (max-width: 800px) {
+      .wrap { padding: 1rem; }
+      .grid { grid-template-columns: 1fr; }
+      .hero { transform: none; }
+      .anchor-item { grid-template-columns: 1fr; }
+      .anchor-item code { max-width: 100%; }
+    }
+  </style>
 </head>
-<body class="neo-landing page-anchor-generator">
+<body>
 <div class="wrap">
-  <section class="tool-hero">
-    <div class="tool-kicker">GitHub Tools Suite</div>
-    <h1>README TOC + Anchor Generator</h1>
-    <p>Upload or paste a README file, generate a linked table of contents, and copy heading anchors individually or all at once.</p>
+  <section class="hero">
+    <h1>README TOC Generator</h1>
+    <p class="subtitle">Paste a README, generate GitHub-ready table-of-contents links, and copy anchors without hunting through Markdown.</p>
   </section>
 
-  <div class="tool-grid grid-equal">
-    <section class="card">
-      <div class="card-header">
-        <h2>Source README</h2>
-        <p class="sub">Drop in a markdown file or paste text directly.</p>
-      </div>
-      <div class="card-content section-stack">
-        <div class="field">
-          <label for="file">Upload README.md</label>
-          <input type="file" id="file" accept=".md,.markdown,.txt" />
-        </div>
-        <div class="field">
-          <label for="input">README content</label>
-          <textarea id="input" placeholder="# Project title
+  <div class="grid">
+    <div class="card">
+      <h3>Input README.md</h3>
+      <input type="file" id="file" />
+      <br><br>
+      <textarea id="input"></textarea>
+      <br><br>
+      <button class="primary" onclick="generate()">Generate</button>
+    </div>
 
-## Overview
+    <div class="card">
+      <h3>Markdown Table of Contents</h3>
+      <pre id="output"></pre>
+      <button onclick="copyTOC()">Copy TOC</button>
 
-## Installation"></textarea>
-        </div>
-        <div class="actions">
-          <button class="primary" id="generateBtn" type="button">Generate</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="card">
-      <div class="card-header">
-        <h2>Generated output</h2>
-        <p class="sub">Copy the TOC block or grab heading anchors one by one.</p>
-      </div>
-      <div class="card-content section-stack">
-        <div class="field">
-          <label for="output">Markdown Table of Contents</label>
-          <pre id="output"></pre>
-        </div>
-        <div class="actions">
-          <button id="copyTocBtn" type="button">Copy TOC</button>
-        </div>
-
-        <div class="field">
-          <label>Individual Anchor Links</label>
-          <div id="anchors" class="anchors"></div>
-        </div>
-        <div class="actions">
-          <button id="copyAllBtn" type="button">Copy All Anchors</button>
-        </div>
-      </div>
-    </section>
+      <h3 style="margin-top:20px;">Individual Anchor Links</h3>
+      <div id="anchors" class="anchors"></div>
+      <button onclick="copyAllAnchors()">Copy All Anchors</button>
+    </div>
   </div>
 </div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
 
 <script>
 function slugify(text, map) {
   let slug = text.toLowerCase()
-    .replace(/[\u2000-\u206F\u2E00-\u2E7F'!"#$%&()*+,./:;<=>?@[\\\]^`{|}~]/g, "")
-    .replace(/\s+/g, "-");
+    .replace(/[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,./:;<=>?@[\]^`{|}~]/g, '')
+    .replace(/\s+/g, '-');
 
-  if (map[slug] !== undefined) {
+  if(map[slug] !== undefined) {
     map[slug]++;
-    slug = slug + "-" + map[slug];
+    slug = slug + '-' + map[slug];
   } else {
     map[slug] = 0;
   }
-
   return slug;
 }
 
 let anchorList = [];
 
 function generate() {
-  const text = document.getElementById("input").value;
-  const lines = text.split("\n");
+  const text = document.getElementById('input').value;
+  const lines = text.split('\n');
   const map = {};
 
-  const toc = [];
+  let toc = [];
   anchorList = [];
 
-  lines.forEach((line) => {
+  lines.forEach(line => {
     const match = line.match(/^(#{1,6})\s+(.*)/);
-    if (match) {
+    if(match) {
       const level = match[1].length;
       const title = match[2].trim();
       const slug = slugify(title, map);
 
-      const indent = "  ".repeat(level - 1);
+      const indent = '  '.repeat(level - 1);
       toc.push(`${indent}- [${title}](#${slug})`);
+
       anchorList.push({ title, slug });
     }
   });
 
-  document.getElementById("output").textContent = toc.join("\n");
+  document.getElementById('output').textContent = toc.join('\n');
   renderAnchors();
 }
 
 function renderAnchors() {
-  const container = document.getElementById("anchors");
-  container.innerHTML = "";
+  const container = document.getElementById('anchors');
+  container.innerHTML = '';
 
-  anchorList.forEach((item) => {
-    const div = document.createElement("div");
-    div.className = "anchor-item";
+  anchorList.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'anchor-item';
 
     const url = `#${item.slug}`;
 
-    const titleSpan = document.createElement("span");
-    titleSpan.textContent = item.title;
-
-    const code = document.createElement("code");
-    code.textContent = url;
-
-    const button = document.createElement("button");
-    button.type = "button";
-    button.textContent = "Copy";
-    button.addEventListener("click", () => copyText(url));
-
-    div.appendChild(titleSpan);
-    div.appendChild(code);
-    div.appendChild(button);
+    div.innerHTML = `
+      <span>${item.title}</span>
+      <code>${url}</code>
+      <button onclick="copyText('${url}', 'Anchor copied')">Copy</button>
+    `;
 
     container.appendChild(div);
   });
 }
 
-async function copyText(text) {
-  try {
-    await navigator.clipboard.writeText(text);
-  } catch (err) {
-    fallbackCopy(text);
-  }
+let toastTimer;
+
+function showToast(message = 'Copied to clipboard', type = 'success') {
+  const toast = document.getElementById('toast');
+  if (!toast) return;
+
+  clearTimeout(toastTimer);
+  toast.textContent = message;
+  toast.classList.toggle('error', type === 'error');
+  toast.classList.add('show');
+
+  toastTimer = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 2200);
 }
 
 function fallbackCopy(text) {
-  const temp = document.createElement("textarea");
-  temp.value = text;
-  document.body.appendChild(temp);
-  temp.select();
-  document.execCommand("copy");
-  document.body.removeChild(temp);
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.setAttribute('readonly', '');
+  textarea.style.position = 'fixed';
+  textarea.style.left = '-9999px';
+  document.body.appendChild(textarea);
+  textarea.select();
+
+  try {
+    const successful = document.execCommand('copy');
+    document.body.removeChild(textarea);
+    return successful;
+  } catch (err) {
+    document.body.removeChild(textarea);
+    return false;
+  }
+}
+
+async function copyText(text, message = 'Copied to clipboard') {
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+    } else {
+      const copied = fallbackCopy(text);
+      if (!copied) throw new Error('Fallback copy failed');
+    }
+    showToast(message);
+  } catch (err) {
+    showToast('Copy failed — select and copy manually', 'error');
+  }
 }
 
 function copyTOC() {
-  const text = document.getElementById("output").textContent;
-  copyText(text);
+  const text = document.getElementById('output').textContent;
+  copyText(text, 'TOC copied');
 }
 
 function copyAllAnchors() {
-  const text = anchorList.map((a) => `${a.title} -> #${a.slug}`).join("\n");
-  copyText(text);
+  const text = anchorList.map(a => `${a.title} -> #${a.slug}`).join('\n');
+  copyText(text, 'All anchors copied');
 }
 
-const fileInput = document.getElementById("file");
-fileInput.addEventListener("change", (e) => {
+// file upload
+const fileInput = document.getElementById('file');
+fileInput.addEventListener('change', e => {
   const file = e.target.files[0];
-  if (!file) return;
-
+  if(!file) return;
   const reader = new FileReader();
-  reader.onload = (event) => {
-    document.getElementById("input").value = event.target.result;
+  reader.onload = e => {
+    document.getElementById('input').value = e.target.result;
   };
   reader.readAsText(file);
 });
-
-document.getElementById("generateBtn").addEventListener("click", generate);
-document.getElementById("copyTocBtn").addEventListener("click", copyTOC);
-document.getElementById("copyAllBtn").addEventListener("click", copyAllAnchors);
 </script>
 </body>
 </html>
