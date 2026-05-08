@@ -147,6 +147,15 @@ textarea {
 .field:nth-child(odd) { background: #f2fcff; }
 .field:nth-child(even) { background: #fff0fb; }
 
+.empty-fields {
+  margin-top: 14px;
+  border: 3px dashed var(--ink);
+  background: var(--lime);
+  padding: 16px;
+  font-weight: 900;
+  box-shadow: var(--shadow-sm);
+}
+
 .row {
   display: flex;
   gap: 10px;
@@ -426,47 +435,7 @@ img.preview {
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <script type="module">
-    const defaultFields = [
-      {
-        id: "",
-        type: "input",
-        label: "",
-        description: "",
-        placeholder: "",
-        required: true,
-      },
-      {
-        id: "",
-        type: "input",
-        label: "",
-        description: "",
-        placeholder: "",
-        required: true,
-      },
-      {
-        id: "",
-        type: "textarea",
-        label: "",
-        description: "",
-        placeholder: "",
-        required: true,
-      },
-      {
-        id: "",
-        type: "upload",
-        label: "",
-        description: "",
-        required: true,
-        options: [
-          "",
-          "",
-          "",
-          "",
-          "",
-          "",
-        ],
-      },
-    ];
+    const defaultFields = [];
 
     const fieldTypeOptions = [
       { value: "input", label: "Short text" },
@@ -694,6 +663,11 @@ ${markdownTextLink}
 
     function renderFields() {
       fieldsEl.innerHTML = "";
+
+      if (!fields.length) {
+        fieldsEl.innerHTML = `<div class="empty-fields">No form fields yet. Click Add Field to start building your issue form.</div>`;
+        return;
+      }
 
       fields.forEach((field, index) => {
         const div = document.createElement("div");
