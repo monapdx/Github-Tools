@@ -1,556 +1,672 @@
 <!doctype html>
 <html lang="en" class="neo-landing-root">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GitHub Topic Cloud</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GitHub Topic Cloud</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
-      rel="stylesheet"
-    />
+  <style>
+    :root {
+      --ink: #111111;
+      --paper: #fff8fd;
+      --panel: #ffffff;
+      --lime: #c8ff00;
+      --pink: #ff3eb5;
+      --aqua: #00d7ff;
+      --purple: #7c3cff;
+      --shadow: 8px 8px 0 var(--ink);
+      --shadow-sm: 4px 4px 0 var(--ink);
+    }
 
-    <link rel="stylesheet" href="./github-tools-common.css" />
-    <link rel="stylesheet" href="./github-tools-neo.css" />
+    *, *::before, *::after { box-sizing: border-box; }
 
-    <style>
-      .neo-panel-stack {
-        display: flex;
-        flex-direction: column;
-        gap: 32px;
-        margin-top: 32px;
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 14%, rgba(255, 62, 181, 0.28) 0 12rem, transparent 12.25rem),
+        radial-gradient(circle at 88% 8%, rgba(0, 215, 255, 0.32) 0 11rem, transparent 11.25rem),
+        radial-gradient(circle at 70% 92%, rgba(200, 255, 0, 0.3) 0 13rem, transparent 13.25rem),
+        linear-gradient(135deg, #fff8fd 0%, #effcff 50%, #fbffe0 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(17,17,17,0.04) 1px, transparent 1px),
+        linear-gradient(rgba(17,17,17,0.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mix-blend-mode: multiply;
+    }
+
+    a { color: inherit; }
+
+    .neo-wrap {
+      width: min(76rem, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 2rem 0 3rem;
+      position: relative;
+    }
+
+    .neo-hero {
+      border: 4px solid var(--ink);
+      background: var(--lime);
+      box-shadow: var(--shadow);
+      padding: clamp(1.2rem, 3vw, 2rem);
+      margin-bottom: 2rem;
+      transform: rotate(-0.35deg);
+      position: relative;
+    }
+
+    .neo-hero::after {
+      content: "TOPIC POWER TOOL";
+      position: absolute;
+      right: 1.25rem;
+      top: -1rem;
+      background: var(--pink);
+      border: 3px solid var(--ink);
+      box-shadow: var(--shadow-sm);
+      padding: 0.4rem 0.65rem;
+      font-weight: 950;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      transform: rotate(2deg);
+    }
+
+    .neo-hero h1 {
+      margin: 0;
+      max-width: 58rem;
+      font-size: clamp(2.5rem, 8vw, 6rem);
+      line-height: 0.88;
+      letter-spacing: -0.085em;
+      text-transform: uppercase;
+    }
+
+    .neo-hero p {
+      max-width: 52rem;
+      margin: 1rem 0 0;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      line-height: 1.45;
+      font-weight: 850;
+    }
+
+    .neo-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .neo-card {
+      background: var(--panel);
+      border: 4px solid var(--ink);
+      box-shadow: var(--shadow);
+      padding: 1.2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .neo-card::before {
+      content: "";
+      display: block;
+      height: 0.9rem;
+      margin: -1.2rem -1.2rem 1rem;
+      background: var(--pink);
+      border-bottom: 4px solid var(--ink);
+    }
+
+    .neo-card:nth-child(2)::before {
+      background: var(--aqua);
+    }
+
+    .neo-card h2 {
+      display: inline-block;
+      margin: 0 0 0.85rem;
+      padding: 0.35rem 0.55rem;
+      background: var(--ink);
+      color: white;
+      font-size: 1rem;
+      line-height: 1.15;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .neo-card p {
+      margin: 0 0 1.25rem;
+      font-size: 1rem;
+      line-height: 1.45;
+      font-weight: 750;
+    }
+
+    .field,
+    .control {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    label {
+      font-size: 0.9rem;
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      border: 4px solid var(--ink);
+      background: white;
+      color: var(--ink);
+      padding: 0.75rem;
+      font: inherit;
+      font-weight: 750;
+      box-shadow: var(--shadow-sm);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--pink);
+    }
+
+    input[type="checkbox"] {
+      width: 1.4rem;
+      height: 1.4rem;
+      accent-color: var(--pink);
+    }
+
+    .actions,
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin: 1rem 0;
+    }
+
+    .neo-btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 7rem;
+      padding: 0.65rem 0.9rem;
+      border: 3px solid var(--ink);
+      background: var(--pink);
+      color: var(--ink);
+      cursor: pointer;
+      font-weight: 950;
+      text-transform: uppercase;
+      text-decoration: none;
+      box-shadow: var(--shadow-sm);
+      transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+    }
+
+    .neo-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--ink);
+      background: var(--aqua);
+    }
+
+    .neo-btn:active {
+      transform: translate(3px, 3px);
+      box-shadow: 1px 1px 0 var(--ink);
+    }
+
+    .neo-btn.secondary {
+      background: var(--aqua);
+    }
+
+    .neo-btn.secondary:hover {
+      background: var(--lime);
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+      margin-top: 1rem;
+    }
+
+    .value {
+      display: inline-block;
+      align-self: flex-start;
+      background: var(--lime);
+      border: 3px solid var(--ink);
+      padding: 0.25rem 0.5rem;
+      font-weight: 950;
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+
+    .status {
+      min-height: 2rem;
+      margin-bottom: 1rem;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .status.ok { color: #007a36; }
+    .status.error { color: #c00039; }
+
+    .cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      min-height: 12rem;
+      padding: 1rem;
+      border: 4px solid var(--ink);
+      background: #fff8fd;
+      box-shadow: inset 4px 4px 0 rgba(17,17,17,0.15);
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.55rem 0.7rem;
+      background: var(--lime);
+      border: 3px solid var(--ink);
+      box-shadow: var(--shadow-sm);
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 950;
+      line-height: 1;
+      transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+    }
+
+    .chip:nth-child(3n) { background: var(--pink); }
+    .chip:nth-child(4n) { background: var(--aqua); }
+    .chip:nth-child(5n) { background: var(--purple); color: white; }
+
+    .chip:hover {
+      transform: translate(-2px, -2px) rotate(-0.35deg);
+      box-shadow: 6px 6px 0 var(--ink);
+      background: white;
+      color: var(--ink);
+    }
+
+    .count {
+      background: var(--ink);
+      color: white;
+      padding: 0.2rem 0.45rem;
+      font-size: 0.75em;
+      border: 2px solid var(--ink);
+    }
+
+    .footer {
+      margin-top: 1rem;
+      font-weight: 850;
+      line-height: 1.45;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .back-link {
+      display: inline-flex;
+      margin-bottom: 1rem;
+      font-weight: 950;
+      text-transform: uppercase;
+      text-decoration: none;
+      background: white;
+      border: 3px solid var(--ink);
+      box-shadow: var(--shadow-sm);
+      padding: 0.45rem 0.65rem;
+    }
+
+    .back-link:hover {
+      background: var(--aqua);
+    }
+
+    @media (max-width: 900px) {
+      .neo-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .neo-wrap {
+        width: min(100% - 1rem, 76rem);
+        padding-top: 1rem;
       }
 
-      .neo-panel {
-        background: #f4f4f4;
-        border: 4px solid #000;
-        box-shadow: 10px 10px 0 #000;
-        padding: 28px;
+      .neo-hero {
+        transform: none;
       }
 
-      .neo-panel-header h2 {
-        font-size: 2rem;
-        margin-bottom: 10px;
-      }
-
-      .neo-panel-header p {
-        font-size: 1rem;
-        max-width: 760px;
-      }
-
-      .neo-form {
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-        margin-top: 24px;
-      }
-
-      .neo-button-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 14px;
+      .neo-hero::after {
+        position: static;
+        display: inline-block;
+        margin-bottom: 0.8rem;
+        transform: none;
       }
 
       .neo-btn {
-        background: #ff4db8;
-        color: #000;
-        border: 4px solid #000;
-        box-shadow: 5px 5px 0 #000;
-        padding: 14px 20px;
-        font-weight: 700;
-        text-transform: uppercase;
-        cursor: pointer;
-      }
-
-      .neo-btn:hover {
-        transform: translate(-2px, -2px);
-        box-shadow: 7px 7px 0 #000;
-      }
-
-      .neo-btn-secondary {
-        background: #7df9ff;
-      }
-
-      .controls {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 18px;
-        margin-top: 24px;
-      }
-
-      .field,
-      .control {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      label {
-        font-weight: 700;
-        text-transform: uppercase;
-      }
-
-      input[type="text"],
-      input[type="password"] {
-        border: 4px solid #000;
-        padding: 14px;
-        font: inherit;
-        background: #fff;
-      }
-
-      input[type="range"] {
         width: 100%;
       }
+    }
+  </style>
+</head>
 
-      .checkbox-control {
-        justify-content: center;
-      }
+<body>
+  <main class="neo-wrap">
+    <a class="back-link" href="./index.html">← Back to Tools</a>
 
-      .checkbox-control input {
-        width: 28px;
-        height: 28px;
-      }
+    <header class="neo-hero">
+      <h1>GitHub Topic Cloud</h1>
+      <p>
+        Enter a GitHub username to visualize the most common repository topics.
+        Click any topic to open its global GitHub topic page.
+      </p>
+    </header>
 
-      .value {
-        font-size: 0.9rem;
-        font-weight: 600;
-      }
-
-      .full-width {
-        grid-column: 1 / -1;
-      }
-
-      .status {
-        font-weight: 700;
-        margin-top: 16px;
-      }
-
-      .status.ok {
-        color: #007a36;
-      }
-
-      .status.error {
-        color: #c00039;
-      }
-
-      .cloud {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 14px;
-        margin-top: 28px;
-      }
-
-      .chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        padding: 10px 14px;
-        background: #c6ff00;
-        border: 3px solid #000;
-        box-shadow: 4px 4px 0 #000;
-        text-decoration: none;
-        color: #000;
-        font-weight: 700;
-      }
-
-      .chip:hover {
-        transform: translate(-2px, -2px);
-        box-shadow: 6px 6px 0 #000;
-      }
-
-      .count {
-        background: #000;
-        color: #fff;
-        padding: 2px 8px;
-        font-size: 0.8rem;
-      }
-
-      .footer {
-        margin-top: 24px;
-        font-weight: 700;
-      }
-
-      .hidden {
-        display: none !important;
-      }
-    </style>
-  </head>
-
-  <body class="neo-landing">
-    <div class="wrap">
-      <section class="tool-hero">
-        <div class="tool-kicker">GitHub Tools Suite</div>
-        <h1>GitHub Topic Cloud</h1>
+    <section class="neo-layout">
+      <article class="neo-card">
+        <h2>Input + Filters</h2>
         <p>
-          Enter a username to see their most frequently used repository topics.
-          Click a topic to open the global GitHub topic page.
+          Pick a user, optionally add a token, and tune how many topics to show.
         </p>
-      </section>
 
-      <div class="neo-panel-stack">
-        <section class="neo-panel">
-          <div class="neo-panel-header">
-            <h2>Input + Filters</h2>
-            <p>
-              Enter a GitHub username and generate a visual topic cloud from
-              public repositories.
-            </p>
+        <form id="form">
+          <div class="field">
+            <label for="username">GitHub username</label>
+            <input id="username" type="text" placeholder="e.g. monapdx" autocomplete="off" />
           </div>
 
-          <form id="form" class="neo-form">
-            <div class="field">
-              <label for="username">GitHub Username</label>
-              <input
-                id="username"
-                type="text"
-                placeholder="e.g. monapdx"
-                autocomplete="off"
-              />
-            </div>
+          <div class="actions">
+            <button id="go" type="submit" class="neo-btn">Generate</button>
+            <button id="advancedBtn" class="neo-btn secondary" type="button">Advanced</button>
+            <button id="clearTokenBtn" class="neo-btn secondary hidden" type="button">Clear Token</button>
+          </div>
+        </form>
 
-            <div class="neo-button-row">
-              <button id="go" type="submit" class="neo-btn">
-                Generate Cloud
-              </button>
+        <div id="advanced" class="controls hidden">
+          <div class="control">
+            <label for="token">GitHub token optional</label>
+            <input id="token" type="password" placeholder="ghp_..." autocomplete="off" />
+            <div class="value">Stored locally</div>
+          </div>
+        </div>
 
-              <button
-                id="advancedBtn"
-                class="neo-btn neo-btn-secondary"
-                type="button"
-              >
-                Advanced
-              </button>
-
-              <button
-                id="clearTokenBtn"
-                class="neo-btn neo-btn-secondary hidden"
-                type="button"
-              >
-                Clear Token
-              </button>
-            </div>
-          </form>
-
-          <div id="advanced" class="controls hidden">
-            <div class="control full-width">
-              <label for="token">GitHub Token Optional</label>
-              <input
-                id="token"
-                type="password"
-                placeholder="ghp_..."
-                autocomplete="off"
-              />
-
-              <div class="value">
-                Stored locally in localStorage to help avoid GitHub API limits.
-              </div>
-            </div>
+        <div class="controls">
+          <div class="control">
+            <label for="topN">Show top N topics</label>
+            <input id="topN" type="range" min="10" max="100" value="40" />
+            <div class="value"><span id="topNVal">40</span></div>
           </div>
 
-          <div class="controls">
-            <div class="control">
-              <label for="topN">Top Topics</label>
-              <input id="topN" type="range" min="10" max="100" value="40" />
-              <div class="value"><span id="topNVal">40</span></div>
-            </div>
-
-            <div class="control">
-              <label for="minFreq">Minimum Frequency</label>
-              <input id="minFreq" type="range" min="1" max="10" value="1" />
-              <div class="value"><span id="minFreqVal">1</span></div>
-            </div>
-
-            <div class="control checkbox-control">
-              <label for="includeForks">Include Forks</label>
-              <input id="includeForks" type="checkbox" />
-            </div>
-          </div>
-        </section>
-
-        <section class="neo-panel">
-          <div class="neo-panel-header">
-            <h2>Results</h2>
-            <p>Click any topic to open the matching GitHub topic page.</p>
+          <div class="control">
+            <label for="minFreq">Minimum frequency</label>
+            <input id="minFreq" type="range" min="1" max="10" value="1" />
+            <div class="value"><span id="minFreqVal">1</span></div>
           </div>
 
-          <div id="status" class="status"></div>
-          <div id="cloud" class="cloud"></div>
-
-          <div class="footer">
-            <span id="summary"></span>
+          <div class="control">
+            <label for="includeForks">Include forks</label>
+            <input id="includeForks" type="checkbox" />
           </div>
-        </section>
-      </div>
-    </div>
+        </div>
+      </article>
 
-    <script>
-      const $ = (id) => document.getElementById(id);
+      <article class="neo-card">
+        <h2>Results</h2>
+        <p>
+          Topic frequency appears as chunky clickable tags.
+        </p>
 
-      const form = $("form");
-      const usernameInput = $("username");
-      const statusEl = $("status");
-      const cloudEl = $("cloud");
-      const summaryEl = $("summary");
+        <div id="status" class="status"></div>
+        <div id="cloud" class="cloud"></div>
 
-      const advancedBtn = $("advancedBtn");
-      const advancedPanel = $("advanced");
-      const tokenInput = $("token");
-      const clearTokenBtn = $("clearTokenBtn");
+        <div class="footer">
+          <span id="summary"></span>
+        </div>
+      </article>
+    </section>
+  </main>
 
-      const topN = $("topN");
-      const topNVal = $("topNVal");
-      const minFreq = $("minFreq");
-      const minFreqVal = $("minFreqVal");
-      const includeForks = $("includeForks");
+  <script>
+    const $ = (id) => document.getElementById(id);
 
-      const goBtn = $("go");
+    const form = $("form");
+    const usernameInput = $("username");
+    const statusEl = $("status");
+    const cloudEl = $("cloud");
+    const summaryEl = $("summary");
 
-      topN.addEventListener("input", () => {
-        topNVal.textContent = topN.value;
-      });
+    const advancedBtn = $("advancedBtn");
+    const advancedPanel = $("advanced");
+    const tokenInput = $("token");
+    const clearTokenBtn = $("clearTokenBtn");
 
-      minFreq.addEventListener("input", () => {
-        minFreqVal.textContent = minFreq.value;
-      });
+    const topN = $("topN");
+    const topNVal = $("topNVal");
+    const minFreq = $("minFreq");
+    const minFreqVal = $("minFreqVal");
+    const includeForks = $("includeForks");
 
-      const TOKEN_KEY = "gh_topic_cloud_token";
-      const savedToken = localStorage.getItem(TOKEN_KEY);
+    const goBtn = $("go");
 
-      if (savedToken) {
-        tokenInput.value = savedToken;
+    topN.addEventListener("input", () => topNVal.textContent = topN.value);
+    minFreq.addEventListener("input", () => minFreqVal.textContent = minFreq.value);
+
+    const TOKEN_KEY = "gh_topic_cloud_token";
+    const savedToken = localStorage.getItem(TOKEN_KEY);
+
+    if (savedToken) {
+      tokenInput.value = savedToken;
+      clearTokenBtn.classList.remove("hidden");
+    }
+
+    advancedBtn.addEventListener("click", () => {
+      advancedPanel.classList.toggle("hidden");
+      clearTokenBtn.classList.toggle("hidden", !localStorage.getItem(TOKEN_KEY));
+    });
+
+    tokenInput.addEventListener("change", () => {
+      const token = tokenInput.value.trim();
+
+      if (token) {
+        localStorage.setItem(TOKEN_KEY, token);
         clearTokenBtn.classList.remove("hidden");
-      }
-
-      advancedBtn.addEventListener("click", () => {
-        advancedPanel.classList.toggle("hidden");
-        clearTokenBtn.classList.toggle(
-          "hidden",
-          !localStorage.getItem(TOKEN_KEY)
-        );
-      });
-
-      tokenInput.addEventListener("change", () => {
-        const t = tokenInput.value.trim();
-
-        if (t) {
-          localStorage.setItem(TOKEN_KEY, t);
-          clearTokenBtn.classList.remove("hidden");
-        } else {
-          localStorage.removeItem(TOKEN_KEY);
-          clearTokenBtn.classList.add("hidden");
-        }
-      });
-
-      clearTokenBtn.addEventListener("click", () => {
+      } else {
         localStorage.removeItem(TOKEN_KEY);
-        tokenInput.value = "";
         clearTokenBtn.classList.add("hidden");
-        setStatus("Saved token cleared.", "ok");
-      });
-
-      function setStatus(msg, kind = "") {
-        statusEl.textContent = msg || "";
-        statusEl.className = "status" + (kind ? " " + kind : "");
       }
+    });
 
-      function topicUrl(topic) {
-        const slug = String(topic).trim().toLowerCase();
-        return `https://github.com/topics/${encodeURIComponent(slug)}`;
-      }
+    clearTokenBtn.addEventListener("click", () => {
+      localStorage.removeItem(TOKEN_KEY);
+      tokenInput.value = "";
+      clearTokenBtn.classList.add("hidden");
+      setStatus("Saved token cleared.", "ok");
+    });
 
-      function clamp(n, a, b) {
-        return Math.max(a, Math.min(b, n));
-      }
+    function setStatus(msg, kind = "") {
+      statusEl.textContent = msg || "";
+      statusEl.className = "status" + (kind ? " " + kind : "");
+    }
 
-      function fontSizeFor(count, minC, maxC) {
-        const min = Math.log(minC + 1);
-        const max = Math.log(maxC + 1);
-        const v = Math.log(count + 1);
-        const t = (v - min) / (max - min || 1);
-        const px = 12 + t * 18;
+    function topicUrl(topic) {
+      const slug = String(topic).trim().toLowerCase();
+      return `https://github.com/topics/${encodeURIComponent(slug)}`;
+    }
 
-        return `${clamp(px, 12, 30).toFixed(1)}px`;
-      }
+    function clamp(n, a, b) {
+      return Math.max(a, Math.min(b, n));
+    }
 
-      async function fetchAllRepos(username, token, includeForksFlag) {
-        const perPage = 100;
-        let page = 1;
-        let all = [];
+    function fontSizeFor(count, minC, maxC) {
+      const min = Math.log(minC + 1);
+      const max = Math.log(maxC + 1);
+      const value = Math.log(count + 1);
+      const t = (value - min) / (max - min || 1);
+      const px = 12 + t * 18;
 
-        while (true) {
-          const url = `https://api.github.com/users/${encodeURIComponent(
-            username
-          )}/repos?per_page=${perPage}&page=${page}&sort=updated`;
+      return `${clamp(px, 12, 30).toFixed(1)}px`;
+    }
 
-          const headers = {
-            Accept: "application/vnd.github+json",
-            "X-GitHub-Api-Version": "2022-11-28",
-          };
+    async function fetchAllRepos(username, token, includeForksFlag) {
+      const perPage = 100;
+      let page = 1;
+      let all = [];
 
-          if (token) {
-            headers.Authorization = `Bearer ${token}`;
-          }
+      while (true) {
+        const url = `https://api.github.com/users/${encodeURIComponent(username)}/repos?per_page=${perPage}&page=${page}&sort=updated`;
 
-          const res = await fetch(url, { headers });
-
-          if (!res.ok) {
-            let extra = "";
-
-            try {
-              extra = await res.text();
-            } catch {}
-
-            throw new Error(
-              `GitHub API error ${res.status} ${res.statusText}${
-                extra ? " — " + extra : ""
-              }`
-            );
-          }
-
-          const batch = await res.json();
-
-          if (!Array.isArray(batch)) break;
-
-          const filtered = includeForksFlag
-            ? batch
-            : batch.filter((repo) => !repo.fork);
-
-          all = all.concat(filtered);
-
-          if (batch.length < perPage) break;
-
-          page += 1;
-
-          if (page > 20) break;
-        }
-
-        return all;
-      }
-
-      function countTopics(repos) {
-        const map = new Map();
-
-        for (const repo of repos) {
-          const topics = Array.isArray(repo.topics) ? repo.topics : [];
-
-          for (const topic of topics) {
-            const key = String(topic).trim().toLowerCase();
-
-            if (!key) continue;
-
-            map.set(key, (map.get(key) || 0) + 1);
-          }
-        }
-
-        return map;
-      }
-
-      function renderCloud(topicCounts, options) {
-        cloudEl.innerHTML = "";
-        summaryEl.textContent = "";
-
-        const entries = [...topicCounts.entries()]
-          .map(([topic, count]) => ({ topic, count }))
-          .filter((item) => item.count >= options.minFreq)
-          .sort((a, b) => b.count - a.count)
-          .slice(0, options.topN);
-
-        if (!entries.length) {
-          setStatus("No topics found or everything was filtered out.", "error");
-          return;
-        }
-
-        const counts = entries.map((entry) => entry.count);
-        const minC = Math.min(...counts);
-        const maxC = Math.max(...counts);
-
-        for (const { topic, count } of entries) {
-          const a = document.createElement("a");
-          a.className = "chip";
-          a.href = topicUrl(topic);
-          a.target = "_blank";
-          a.rel = "noopener noreferrer";
-          a.style.fontSize = fontSizeFor(count, minC, maxC);
-
-          const label = document.createElement("span");
-          label.textContent = topic;
-
-          const badge = document.createElement("span");
-          badge.className = "count";
-          badge.textContent = count;
-
-          a.appendChild(label);
-          a.appendChild(badge);
-          cloudEl.appendChild(a);
-        }
-
-        const totalTopics = topicCounts.size;
-        const totalTaggedRepos = [...topicCounts.values()].reduce(
-          (a, b) => a + b,
-          0
-        );
-
-        summaryEl.textContent = `Showing ${entries.length} topics • ${totalTopics} unique topics found • ${totalTaggedRepos} topic-usages counted.`;
-
-        setStatus("Done.", "ok");
-      }
-
-      async function run() {
-        const username = usernameInput.value.trim();
-
-        if (!username) {
-          setStatus("Please enter a GitHub username.", "error");
-          return;
-        }
-
-        const token = (
-          tokenInput.value ||
-          localStorage.getItem(TOKEN_KEY) ||
-          ""
-        ).trim();
-
-        const opts = {
-          topN: Number(topN.value),
-          minFreq: Number(minFreq.value),
-          includeForks: includeForks.checked,
+        const headers = {
+          "Accept": "application/vnd.github+json",
+          "X-GitHub-Api-Version": "2022-11-28"
         };
 
-        setStatus(`Fetching repos for ${username}...`);
-        cloudEl.innerHTML = "";
-        summaryEl.textContent = "";
-        goBtn.disabled = true;
+        if (token) headers["Authorization"] = `Bearer ${token}`;
 
-        try {
-          const repos = await fetchAllRepos(username, token, opts.includeForks);
+        const res = await fetch(url, { headers });
 
-          setStatus(`Counting topics across ${repos.length} repos...`);
+        if (!res.ok) {
+          let extra = "";
 
-          const topicCounts = countTopics(repos);
+          try {
+            extra = await res.text();
+          } catch {}
 
-          if (topicCounts.size === 0) {
-            setStatus("No topics found on this user's repos.", "error");
-            return;
-          }
+          throw new Error(`GitHub API error ${res.status} ${res.statusText}${extra ? " — " + extra : ""}`);
+        }
 
-          renderCloud(topicCounts, opts);
-        } catch (err) {
-          const msg = err && err.message ? err.message : String(err);
-          const hint = msg.includes("403")
-            ? " If you hit rate limits, add a token in Advanced."
-            : "";
+        const batch = await res.json();
 
-          setStatus(msg + hint, "error");
-        } finally {
-          goBtn.disabled = false;
+        if (!Array.isArray(batch)) break;
+
+        const filtered = includeForksFlag ? batch : batch.filter((repo) => !repo.fork);
+        all = all.concat(filtered);
+
+        if (batch.length < perPage) break;
+
+        page += 1;
+
+        if (page > 20) break;
+      }
+
+      return all;
+    }
+
+    function countTopics(repos) {
+      const map = new Map();
+
+      for (const repo of repos) {
+        const topics = Array.isArray(repo.topics) ? repo.topics : [];
+
+        for (const topic of topics) {
+          const key = String(topic).trim().toLowerCase();
+
+          if (!key) continue;
+
+          map.set(key, (map.get(key) || 0) + 1);
         }
       }
 
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        run();
-      });
-    </script>
-  </body>
+      return map;
+    }
+
+    function renderCloud(topicCounts, options) {
+      cloudEl.innerHTML = "";
+      summaryEl.textContent = "";
+
+      const entries = [...topicCounts.entries()]
+        .map(([topic, count]) => ({ topic, count }))
+        .filter((item) => item.count >= options.minFreq)
+        .sort((a, b) => b.count - a.count)
+        .slice(0, options.topN);
+
+      if (!entries.length) {
+        setStatus("No topics found or everything was filtered out.", "error");
+        return;
+      }
+
+      const counts = entries.map((entry) => entry.count);
+      const minC = Math.min(...counts);
+      const maxC = Math.max(...counts);
+
+      for (const { topic, count } of entries) {
+        const a = document.createElement("a");
+        a.className = "chip";
+        a.href = topicUrl(topic);
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.style.fontSize = fontSizeFor(count, minC, maxC);
+
+        const label = document.createElement("span");
+        label.textContent = topic;
+
+        const badge = document.createElement("span");
+        badge.className = "count";
+        badge.textContent = count;
+
+        a.appendChild(label);
+        a.appendChild(badge);
+        cloudEl.appendChild(a);
+      }
+
+      const totalTopics = topicCounts.size;
+      const totalTaggedRepos = [...topicCounts.values()].reduce((a, b) => a + b, 0);
+
+      summaryEl.textContent = `Showing ${entries.length} topics • ${totalTopics} unique topics found • ${totalTaggedRepos} topic-usages counted.`;
+
+      setStatus("Done.", "ok");
+    }
+
+    async function run() {
+      const username = usernameInput.value.trim();
+
+      if (!username) {
+        setStatus("Please enter a GitHub username.", "error");
+        return;
+      }
+
+      const token = (tokenInput.value || localStorage.getItem(TOKEN_KEY) || "").trim();
+
+      const opts = {
+        topN: Number(topN.value),
+        minFreq: Number(minFreq.value),
+        includeForks: includeForks.checked
+      };
+
+      setStatus(`Fetching repos for ${username}...`);
+      cloudEl.innerHTML = "";
+      summaryEl.textContent = "";
+      goBtn.disabled = true;
+
+      try {
+        const repos = await fetchAllRepos(username, token, opts.includeForks);
+
+        setStatus(`Counting topics across ${repos.length} repos...`);
+
+        const topicCounts = countTopics(repos);
+
+        if (topicCounts.size === 0) {
+          setStatus("No topics found on this user's repos.", "error");
+          return;
+        }
+
+        renderCloud(topicCounts, opts);
+      } catch (err) {
+        const msg = err && err.message ? err.message : String(err);
+        const hint = msg.includes("403") ? " If you hit rate limits, add a token in Advanced." : "";
+
+        setStatus(msg + hint, "error");
+      } finally {
+        goBtn.disabled = false;
+      }
+    }
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      run();
+    });
+  </script>
+</body>
 </html>
