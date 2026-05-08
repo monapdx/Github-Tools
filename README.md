@@ -1,7 +1,5 @@
 # GitHub Tools Suite
 
-<img src="https://raw.githubusercontent.com/monapdx/Github-Tools/refs/heads/main/logo.png" width="454">
-
 A collection of lightweight, browser-based tools for common GitHub workflows: README cleanup, links, badges, issue forms, YAML, and topics.
 
 No install or build step. Open an HTML file locally or host the folder on **GitHub Pages**.
