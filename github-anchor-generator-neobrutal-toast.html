@@ -329,18 +329,63 @@ function renderAnchors() {
   });
 }
 
-function copyText(text) {
-  navigator.clipboard.writeText(text);
+let toastTimer;
+
+function showToast(message = 'Copied to clipboard', type = 'success') {
+  const toast = document.getElementById('toast');
+  if (!toast) return;
+
+  clearTimeout(toastTimer);
+  toast.textContent = message;
+  toast.classList.toggle('error', type === 'error');
+  toast.classList.add('show');
+
+  toastTimer = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 2200);
+}
+
+function fallbackCopy(text) {
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.setAttribute('readonly', '');
+  textarea.style.position = 'fixed';
+  textarea.style.left = '-9999px';
+  document.body.appendChild(textarea);
+  textarea.select();
+
+  try {
+    const successful = document.execCommand('copy');
+    document.body.removeChild(textarea);
+    return successful;
+  } catch (err) {
+    document.body.removeChild(textarea);
+    return false;
+  }
+}
+
+async function copyText(text, message = 'Copied to clipboard') {
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+    } else {
+      const copied = fallbackCopy(text);
+      if (!copied) throw new Error('Fallback copy failed');
+    }
+    showToast(message);
+  } catch (err) {
+    showToast('Copy failed — select and copy manually', 'error');
+  }
 }
 
 function copyTOC() {
   const text = document.getElementById('output').textContent;
-  navigator.clipboard.writeText(text);
+  copyText(text, 'TOC copied');
 }
 
 function copyAllAnchors() {
   const text = anchorList.map(a => `${a.title} -> #${a.slug}`).join('\n');
-  navigator.clipboard.writeText(text);
+  copyText(text, 'All anchors copied');
 }
 
 // file upload
