@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en" class="neo-landing-root">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GitHub Tools Suite</title>
+  <style>
+    :root {
+      --ink: #111111;
+      --paper: #fff8fd;
+      --panel: #ffffff;
+      --lime: #c8ff00;
+      --pink: #ff3eb5;
+      --aqua: #00d7ff;
+      --purple: #7c3cff;
+      --shadow: 8px 8px 0 var(--ink);
+      --shadow-sm: 4px 4px 0 var(--ink);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 14%, rgba(255, 62, 181, 0.28) 0 12rem, transparent 12.25rem),
+        radial-gradient(circle at 88% 8%, rgba(0, 215, 255, 0.32) 0 11rem, transparent 11.25rem),
+        radial-gradient(circle at 70% 92%, rgba(200, 255, 0, 0.3) 0 13rem, transparent 13.25rem),
+        linear-gradient(135deg, #fff8fd 0%, #effcff 50%, #fbffe0 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(17,17,17,0.04) 1px, transparent 1px),
+        linear-gradient(rgba(17,17,17,0.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mix-blend-mode: multiply;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .neo-wrap {
+      width: min(76rem, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 2rem 0 3rem;
+      position: relative;
+    }
+
+    .neo-hero {
+      border: 4px solid var(--ink);
+      background: var(--lime);
+      box-shadow: var(--shadow);
+      padding: clamp(1.2rem, 3vw, 2rem);
+      margin-bottom: 2rem;
+      transform: rotate(-0.35deg);
+      position: relative;
+    }
+
+    .neo-hero::after {
+      content: "NON-CODER FRIENDLY";
+      position: absolute;
+      right: 1.25rem;
+      top: -1rem;
+      background: var(--pink);
+      border: 3px solid var(--ink);
+      box-shadow: var(--shadow-sm);
+      padding: 0.4rem 0.65rem;
+      font-weight: 950;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      transform: rotate(2deg);
+    }
+
+    .neo-hero h1 {
+      margin: 0;
+      max-width: 58rem;
+      font-size: clamp(2.5rem, 8vw, 6rem);
+      line-height: 0.88;
+      letter-spacing: -0.085em;
+      text-transform: uppercase;
+    }
+
+    .neo-hero p {
+      max-width: 52rem;
+      margin: 1rem 0 0;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      line-height: 1.45;
+      font-weight: 850;
+    }
+
+    .neo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+
+    .neo-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 15rem;
+      background: var(--panel);
+      border: 4px solid var(--ink);
+      box-shadow: var(--shadow);
+      padding: 1.2rem;
+      transition: transform 140ms ease, box-shadow 140ms ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .neo-card::before {
+      content: "";
+      display: block;
+      height: 0.9rem;
+      margin: -1.2rem -1.2rem 1rem;
+      background: var(--pink);
+      border-bottom: 4px solid var(--ink);
+    }
+
+    .neo-card:nth-child(2n)::before { background: var(--aqua); }
+    .neo-card:nth-child(3n)::before { background: var(--lime); }
+    .neo-card:nth-child(4n)::before { background: var(--purple); }
+
+    .neo-card:hover {
+      transform: translate(-3px, -3px) rotate(-0.35deg);
+      box-shadow: 12px 12px 0 var(--ink);
+    }
+
+    .neo-card h3 {
+      display: inline-block;
+      align-self: flex-start;
+      margin: 0 0 0.85rem;
+      padding: 0.35rem 0.55rem;
+      background: var(--ink);
+      color: white;
+      font-size: 1rem;
+      line-height: 1.15;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .neo-card p {
+      margin: 0 0 1.25rem;
+      font-size: 1rem;
+      line-height: 1.45;
+      font-weight: 750;
+      flex: 1;
+    }
+
+    .neo-btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      align-self: flex-start;
+      min-width: 7rem;
+      padding: 0.65rem 0.9rem;
+      border: 3px solid var(--ink);
+      background: var(--pink);
+      color: var(--ink);
+      cursor: pointer;
+      font-weight: 950;
+      text-transform: uppercase;
+      text-decoration: none;
+      box-shadow: var(--shadow-sm);
+      transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+    }
+
+    .neo-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--ink);
+      background: var(--aqua);
+    }
+
+    .neo-btn:active {
+      transform: translate(3px, 3px);
+      box-shadow: 1px 1px 0 var(--ink);
+    }
+
+    @media (max-width: 980px) {
+      .neo-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      .neo-wrap {
+        width: min(100% - 1rem, 76rem);
+        padding-top: 1rem;
+      }
+
+      .neo-hero {
+        transform: none;
+      }
+
+      .neo-hero::after {
+        position: static;
+        display: inline-block;
+        margin-bottom: 0.8rem;
+        transform: none;
+      }
+
+      .neo-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .neo-card {
+        min-height: auto;
+      }
+
+      .neo-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body class="neo-landing">
+  <div class="neo-wrap">
+    <header class="neo-hero">
+      <h1>GitHub Tools Suite</h1>
+      <p>
+        A collection of lightweight tools for improving your GitHub workflow —
+        anchors, buttons, links, forms, and more.
+      </p>
+    </header>
+
+    <div class="neo-grid">
+      <article class="neo-card">
+        <h3>README TOC Generator</h3>
+        <p>Generate a table of contents and anchor links from any README.</p>
+        <a class="neo-btn" href="./github-anchor-generator.html">Open</a>
+      </article>
+
+      <article class="neo-card">
+        <h3>Button Generator</h3>
+        <p>Create GitHub-style badge buttons and links.</p>
+        <a class="neo-btn" href="./github-button-generator.html">Open</a>
+      </article>
+
+      <article class="neo-card">
+        <h3>Link Generator</h3>
+        <p>Build GitHub URLs for repos, issues, templates, and more.</p>
+        <a class="neo-btn" href="https://monapdx.github.io/github-power-links/">Open</a>
+      </article>
+
+      <article class="neo-card">
+        <h3>Topic Cloud</h3>
+        <p>Visualize a user's most common GitHub topics.</p>
+        <a class="neo-btn" href="./github-topic-cloud.html">Open</a>
+      </article>
+
+      <article class="neo-card">
+        <h3>YAML Form Builder</h3>
+        <p>Create and export YAML form schemas visually.</p>
+        <a class="neo-btn" href="./yaml-form-builder.html">Open</a>
+      </article>
+
+      <article class="neo-card">
+        <h3>Issue Form Builder</h3>
+        <p>Generate full GitHub issue forms with YAML + assets.</p>
+        <a class="neo-btn" href="./issue-template-generator.html">Open</a>
+      </article>
+
+      <article class="neo-card">
+        <h3>GitHub Markdown Builder</h3>
+        <p>Generator for README.md, GitHub profiles, and other common .md files.</p>
+        <a class="neo-btn" href="./github_dashboard_builder.html">Open</a>
+      </article>
+    </div>
+  </div>
+</body>
+</html>
