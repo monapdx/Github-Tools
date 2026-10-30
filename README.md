@@ -1,6 +1,6 @@
 # GitHub Tools Suite
 
-<img src="https://raw.githubusercontent.com/monapdx/Github-Tools/refs/heads/main/logo.png" width="454">
+<img src="https://raw.githubusercontent.com/monapdx/Github-Tools/refs/heads/main/GitHub%20Tools%20Suite%20for%20better%20workflows.png">
 
 A collection of lightweight, browser-based GitHub tools designed for non-coders, indie devs, documentation nerds, and anyone tired of repetitive GitHub busywork.
 
