@@ -19,7 +19,6 @@ body:
     attributes:
       label: Resource Name
       description: What is the official name of the resource or organization?
-      placeholder: [PLACEHOLDER TEXT]
     validations:
       required: true
 
@@ -28,7 +27,6 @@ body:
     attributes:
       label: Website / URL
       description: Link to the official website or primary page
-      placeholder: https://
     validations:
       required: true
 
@@ -50,14 +48,12 @@ body:
     attributes:
       label: Geographic Coverage
       description: Where is this resource available?
-      placeholder: [PLACEHOLDER TEXT]
 
   - type: textarea
     id: description
     attributes:
       label: Description
       description: What does this resource do? Who is it for?
-      placeholder: [PLACEHOLDER TEXT]
     validations:
       required: true
 
@@ -66,7 +62,6 @@ body:
     attributes:
       label: Why is this resource valuable?
       description: What makes this resource especially useful or trustworthy?
-      placeholder: [PLACEHOLDER TEXT]
 
   - type: checkboxes
     id: tags
@@ -86,7 +81,6 @@ body:
     attributes:
       label: Additional Notes
       description: Anything else we should know?
-      placeholder: [PLACEHOLDER TEXT]
 
   - type: checkboxes
     id: confirmation
