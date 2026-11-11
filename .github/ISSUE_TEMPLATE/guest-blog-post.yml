@@ -22,8 +22,6 @@ body:
     attributes:
       label: Summary / Pitch
       description: Briefly describe the premise of your guest post.
-      placeholder: |
-        [PLACEHOLDER TEXT]
     validations:
       required: true
 
@@ -32,8 +30,6 @@ body:
     attributes:
       label: Full Draft (or Partial)
       description: Paste your full post here, or a substantial excerpt if it's long.
-      placeholder: |
-        [PLACEHOLDER TEXT]
     validations:
       required: true
 
@@ -42,10 +38,10 @@ body:
     attributes:
       label: Themes (select all that apply)
       options:
-        - label: [TOPIC]
-        - label: [TOPIC]
-        - label: [TOPIC]
-        - label: [TOPIC]
+        - label: TOPIC 1
+        - label: TOPIC 2
+        - label: TOPIC 3
+        - label: TOPIC 4
 
   - type: textarea
     id: other_theme
