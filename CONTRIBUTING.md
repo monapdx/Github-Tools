@@ -14,6 +14,6 @@ Of course, we don't have to be in touch directly for you to make a meaningful co
 
 In fact, the two types of help I happen to be in the most need of at this point in time are:
 
-1. Distribution and amplification: if you find my tools useful and think others might benefit from them, I strongly urge you to share them with your friends, colleagues or clients. This is one of the absolute most powerful things you can do help me out right now. I do not use social media sites and I do not have a professional network to draw from either. So if you do, please share links to my repos with your people!
-2. If any of my tools helped you and you are in a positon to make a small donation or a small monthly contribution, that would be enormously helpful as well. The easiest option would be to become a Sponsor right here on Github!
+1. **Distribution and amplification:** if you find my tools useful and think others might benefit from them, I strongly urge you to share them with your friends, colleagues or clients. This is one of the absolute most powerful things you can do help me out right now. I do not use social media sites and I do not have a professional network to draw from either. So if you do, please share links to my repos with your people!
+2. **Modest sponsorship:** if any of my tools helped you and you are in a positon to make a small donation or a small monthly contribution, that would be enormously helpful as well. The easiest option would be to become a Sponsor right here on Github!
 
