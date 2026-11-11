@@ -9,7 +9,6 @@ body:
     attributes:
       label: Game Title
       description: Enter the title of the game.
-      placeholder: [PLACEHOLDER TEXT]
     validations:
       required: true
 
@@ -48,6 +47,5 @@ body:
     attributes:
       label: Game Link
       description: Paste the URL to the game's itch.io page.
-      placeholder: [PLACEHOLDER TEXT]
     validations:
       required: true
