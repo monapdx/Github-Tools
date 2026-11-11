@@ -20,7 +20,6 @@ body:
     id: name
     attributes:
       label: Name
-      placeholder: Your name
     validations:
       required: true
 
@@ -28,7 +27,6 @@ body:
     id: organization
     attributes:
       label: Organization / project name
-      placeholder: [PLACEHOLDER TEXT]
     validations:
       required: true
 
@@ -36,7 +34,6 @@ body:
     id: role
     attributes:
       label: Your role
-      placeholder: [PLACEHOLDER TEXT]
     validations:
       required: true
 
@@ -44,13 +41,11 @@ body:
     id: website
     attributes:
       label: Website or project link
-      placeholder: https://...
 
   - type: input
     id: contact
     attributes:
       label: Best contact email
-      placeholder: [PLACEHOLDER TEXT]
     validations:
       required: true
 
@@ -75,7 +70,6 @@ body:
     attributes:
       label: Partnership overview
       description: What kind of collaboration are you proposing?
-      placeholder: [PLACEHOLDER TEXT]
     validations:
       required: true
 
@@ -84,7 +78,6 @@ body:
     attributes:
       label: Why this is a good fit
       description: How does this align with the mission and focus of the site?
-      placeholder: [PLACEHOLDER TEXT]
     validations:
       required: true
 
@@ -93,7 +86,6 @@ body:
     attributes:
       label: What are you looking for specifically?
       description: Be as concrete as possible
-      placeholder: [PLACEHOLDER TEXT]
     validations:
       required: true
 
@@ -101,13 +93,11 @@ body:
     id: timeline
     attributes:
       label: Timeline (optional)
-      placeholder: [PLACEHOLDER TEXT]
 
   - type: textarea
     id: additional_info
     attributes:
       label: Additional context (optional)
-      placeholder: [PLACEHOLDER TEXT]
 
   - type: checkboxes
     id: confirmation
