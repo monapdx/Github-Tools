@@ -42,4 +42,6 @@ But when you are not, the conventions of the platform can be rather confusing an
 
 Which is exactly why I started my blog **[Github for Non-Coders](https://monapdx.github.io/github-for-non-coders/blog/)**, where I publish posts to **[help beginners](https://monapdx.github.io/github-for-non-coders/blog/github-for-non-coders-tiny-skills-that-10x-what-you-can-do.html)** learn the basics and show them the many ways Github can be used beyond just storing code.
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/O4O41XT7AO)
+
 
