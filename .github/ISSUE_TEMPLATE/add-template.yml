@@ -1,0 +1,100 @@
+name: 📚 Add a Template
+description: Submit a new [TYPE/TOPIC] template to be included in [WEBSITE]
+title: "[TEMPLATE] "
+labels: ["template", "submission"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for contributing a new [TYPE] template!  
+        Please fill out the details below so we can review and add it properly.
+
+  - type: input
+    id: template-name
+    attributes:
+      label: Template Name
+      description: What is the name of your template?
+      placeholder: [PLACEHOLDER TEXT]
+    validations:
+      required: true
+
+  - type: input
+    id: template-url
+    attributes:
+      label: Template link
+      description: Share a view-only or template link
+      placeholder: https://
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: Choose the best category for this template
+      options:
+        - [CATEGORY]
+        - [CATEGORY]
+        - [CATEGORY]
+        - [CATEGORY]
+    validations:
+      required: true
+
+  - type: input
+    id: new-category
+    attributes:
+      label: Suggest a New Category (optional)
+      description: If "Other", suggest a category name
+      placeholder: [PLACEHOLDER TEXT]
+    validations:
+      required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What does this template do? Who is it for?
+      placeholder: [PLACEHOLDER TEXT]
+    validations:
+      required: true
+
+  - type: textarea
+    id: features
+    attributes:
+      label: Key Features
+      description: List any standout features
+      placeholder:
+    validations:
+      required: false
+
+  - type: upload
+    id: preview-image
+    attributes:
+      label: Preview Image / Screenshot
+      description: Upload a screenshot of the template (PNG/JPG)
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Submission Checklist
+      description: Please confirm the following
+      options:
+        - label: The template is publicly accessible
+          required: true
+        - label: I created this template or have permission to share it
+          required: true
+        - label: The template does not include sensitive or private data
+          required: true
+
+  - type: textarea
+    id: additional-notes
+    attributes:
+      label: Additional Notes
+      description: Anything else you'd like to include?
+      placeholder: [PLACEHOLDER TEXT]
+    validations:
+      required: false

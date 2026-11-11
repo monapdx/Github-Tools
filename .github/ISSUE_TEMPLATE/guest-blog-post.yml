@@ -1,0 +1,79 @@
+name: Guest Blog Post Submission
+description: Submit a blog post you'd like to have featured.
+title: "[Guest Post]: "
+labels: ["guest-post", "submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Guest Blog Submission
+
+        Thank you for your interest in contributing to [BLOG NAME].
+
+  - type: input
+    id: title
+    attributes:
+      label: Proposed Title
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary / Pitch
+      description: Briefly describe the premise of your guest post.
+      placeholder: |
+        [PLACEHOLDER TEXT]
+    validations:
+      required: true
+
+  - type: textarea
+    id: story
+    attributes:
+      label: Full Draft (or Partial)
+      description: Paste your full post here, or a substantial excerpt if it's long.
+      placeholder: |
+        [PLACEHOLDER TEXT]
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: themes
+    attributes:
+      label: Themes (select all that apply)
+      options:
+        - label: [TOPIC]
+        - label: [TOPIC]
+        - label: [TOPIC]
+        - label: [TOPIC]
+
+  - type: textarea
+    id: other_theme
+    attributes:
+      label: If "Other," describe your theme
+      
+
+  - type: dropdown
+    id: anonymity
+    attributes:
+      label: Attribution Preference
+      options:
+        - Publish with my name
+        - Publish under a pseudonym
+        - Publish anonymously
+    validations:
+      required: true
+      
+
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Consent & Rights
+      options:
+        - label: I confirm this is my own original work
+          required: true
+        - label: I consent to this being published on [WEBSITE]
+          required: true
+        - label: I understand minor edits may be made for clarity (unless otherwise noted)
+          required: true
+

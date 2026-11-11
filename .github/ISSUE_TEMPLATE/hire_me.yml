@@ -1,0 +1,141 @@
+name: 🤝 Hire Me
+description: Reach out if you'd like to hire me for a project, collaboration, or contract work.
+title: "[Hire Me]: "
+labels:
+  - hire-me
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for your interest in working with me.
+
+        Please fill out the form below with as much detail as possible so I can understand your project, timeline, and budget.
+
+  - type: input
+    id: name
+    attributes:
+      label: Your name
+      description: Who is reaching out?
+      placeholder: [PLACEHOLDER TEXT]
+    validations:
+      required: true
+
+  - type: input
+    id: company
+    attributes:
+      label: Company / organization
+      description: If applicable
+      placeholder: [PLACEHOLDER TEXT]
+
+  - type: input
+    id: email
+    attributes:
+      label: Email address
+      description: Best email to contact you
+      placeholder: [PLACEHOLDER TEXT]
+    validations:
+      required: true
+
+  - type: dropdown
+    id: inquiry_type
+    attributes:
+      label: What are you looking for?
+      options:
+        - Freelance project
+        - Contract work
+        - Part-time role
+        - Full-time role
+        - Consultation
+        - Collaboration / partnership
+        - Something else
+    validations:
+      required: true
+
+  - type: textarea
+    id: project_summary
+    attributes:
+      label: Project summary
+      description: Give me a brief overview of what you need help with
+      placeholder: [PLACEHOLDER TEXT]
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope of work
+      description: What exactly would you want me to do?
+      placeholder: [PLACEHOLDER TEXT]
+    validations:
+      required: true
+
+  - type: dropdown
+    id: project_type
+    attributes:
+      label: Project type
+      options:
+        - [TYPE]
+        - [TYPE]
+        - [TYPE]
+        - [TYPE]
+    validations:
+      required: true
+
+  - type: textarea
+    id: tech_stack
+    attributes:
+      label: Preferred tools / tech stack
+      description: If you already know what tools or technologies you want used
+      placeholder: [PLACEHOLDER TEXT]
+
+  - type: input
+    id: timeline
+    attributes:
+      label: Desired timeline
+      description: When would you like this to start and/or be completed?
+      placeholder: [PLACEHOLDER TEXT]
+
+  - type: dropdown
+    id: budget_range
+    attributes:
+      label: Budget range
+      description: Choose the closest option
+      options:
+        - Under $250
+        - $250–$500
+        - $500–$1,000
+        - $1,000–$2,500
+        - $2,500+
+        - Prefer to discuss first
+    validations:
+      required: true
+
+  - type: textarea
+    id: references
+    attributes:
+      label: References / examples
+      description: Share links, screenshots, repos, or examples of what you want
+      placeholder: [PLACEHOLDER TEXT]
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: Urgency
+      options:
+        - Low
+        - Medium
+        - High
+        - Very urgent
+
+  - type: checkboxes
+    id: expectations
+    attributes:
+      label: Before submitting
+      options:
+        - label: "I understand this is an inquiry and not a guarantee of availability."
+          required: true
+        - label: "I have included enough detail for a meaningful response."
+          required: true
+        - label: "I am okay being contacted by email about this inquiry."
+          required: true

@@ -1,0 +1,53 @@
+name: Submit Your Game
+description: Submit [GAME NAME] to be added to [WEBSITE].
+title: "[Game]: "
+labels:
+  - game submission
+body:
+  - type: input
+    id: game-title
+    attributes:
+      label: Game Title
+      description: Enter the title of the game.
+      placeholder: [PLACEHOLDER TEXT]
+    validations:
+      required: true
+
+  - type: dropdown
+    id: genre
+    attributes:
+      label: Genre
+      description: Select the primary genre of the game.
+      options:
+        - Arcade
+        - Casual
+        - Puzzle
+        - Shooter
+        - Hidden Object
+        - Narrative
+        - Card
+        - Word
+        - Simulation
+        - City Builder
+        - Cooking
+        - Time Management
+        - Trivia
+        - Logic
+        - Sports
+        - Strategy
+        - Tetris
+        - Board
+        - Racing
+        - Fashion
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: game-link
+    attributes:
+      label: Game Link
+      description: Paste the URL to the game's itch.io page.
+      placeholder: [PLACEHOLDER TEXT]
+    validations:
+      required: true

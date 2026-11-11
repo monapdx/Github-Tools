@@ -1,0 +1,97 @@
+name: ➕ Add New Resource
+description: Submit a resource for inclusion in [WEBSITE NAME]
+title: "[RESOURCE] <name of resource>"
+labels: ["resource submission"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for suggesting a resource.
+
+        This project focuses on curating **reputable, useful, and accessible resources** related to [TOPIC].
+
+        Please provide as much detail as possible to help us evaluate and organize your submission.
+
+  - type: input
+    id: name
+    attributes:
+      label: Resource Name
+      description: What is the official name of the resource or organization?
+      placeholder: [PLACEHOLDER TEXT]
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: Website / URL
+      description: Link to the official website or primary page
+      placeholder: https://
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: Select the primary category this resource belongs to
+      options:
+        - [CATEGORY]
+        - [CATEGORY]
+        - [CATEGORY]
+        - [CATEGORY]
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: Geographic Coverage
+      description: Where is this resource available?
+      placeholder: [PLACEHOLDER TEXT]
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What does this resource do? Who is it for?
+      placeholder: [PLACEHOLDER TEXT]
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: Why is this resource valuable?
+      description: What makes this resource especially useful or trustworthy?
+      placeholder: [PLACEHOLDER TEXT]
+
+  - type: checkboxes
+    id: tags
+    attributes:
+      label: Tags / Relevant Topics
+      description: Select all that apply
+      options:
+        - label: [TAG]
+        - label: [TAG]
+        - label: [TAG]
+        - label: [TAG]
+        - label: [TAG]
+        - label: [TAG]
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Notes
+      description: Anything else we should know?
+      placeholder: [PLACEHOLDER TEXT]
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation
+      options:
+        - label: I have verified that this resource is legitimate and not misleading or harmful
+          required: true
