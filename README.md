@@ -10,3 +10,12 @@ Issue Template **[examples](https://github.com/monapdx/Github-Tools/tree/main/.g
 `https://github.com/USERNAME/REPO-NAME/.github/ISSUE_TEMPLATE/`
 
 
+## ARE YOU NEW TO GITHUB?
+
+You don't have to be a developer or coder to use Github (I'm not either!)
+
+But when you are not, the conventions of the platform can be rather confusing and there is certainly a learning curve.
+
+Which is exactly why I started my blog **[Github for Non-Coders](https://monapdx.github.io/github-for-non-coders/blog/)**, where I publish posts to help beginners learn the basics and show them the many ways Github can be used beyond just storing code.
+
+
