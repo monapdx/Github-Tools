@@ -16,7 +16,6 @@ body:
     attributes:
       label: Template Name
       description: What is the name of your template?
-      placeholder: [PLACEHOLDER TEXT]
     validations:
       required: true
 
@@ -25,7 +24,6 @@ body:
     attributes:
       label: Template link
       description: Share a view-only or template link
-      placeholder: https://
     validations:
       required: true
 
@@ -35,10 +33,10 @@ body:
       label: Category
       description: Choose the best category for this template
       options:
-        - [CATEGORY]
-        - [CATEGORY]
-        - [CATEGORY]
-        - [CATEGORY]
+        - CATEGORY 1
+        - CATEGORY 2
+        - CATEGORY 3
+        - CATEGORY 4
     validations:
       required: true
 
@@ -47,7 +45,6 @@ body:
     attributes:
       label: Suggest a New Category (optional)
       description: If "Other", suggest a category name
-      placeholder: [PLACEHOLDER TEXT]
     validations:
       required: false
 
@@ -56,7 +53,6 @@ body:
     attributes:
       label: Description
       description: What does this template do? Who is it for?
-      placeholder: [PLACEHOLDER TEXT]
     validations:
       required: true
 
@@ -65,7 +61,6 @@ body:
     attributes:
       label: Key Features
       description: List any standout features
-      placeholder:
     validations:
       required: false
 
@@ -95,6 +90,5 @@ body:
     attributes:
       label: Additional Notes
       description: Anything else you'd like to include?
-      placeholder: [PLACEHOLDER TEXT]
     validations:
       required: false
