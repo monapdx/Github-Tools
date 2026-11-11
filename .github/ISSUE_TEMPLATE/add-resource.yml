@@ -36,10 +36,10 @@ body:
       label: Category
       description: Select the primary category this resource belongs to
       options:
-        - [CATEGORY]
-        - [CATEGORY]
-        - [CATEGORY]
-        - [CATEGORY]
+        - CATEGORY
+        - CATEGORY
+        - CATEGORY
+        - CATEGORY
     validations:
       required: true
 
@@ -69,12 +69,12 @@ body:
       label: Tags / Relevant Topics
       description: Select all that apply
       options:
-        - label: [TAG]
-        - label: [TAG]
-        - label: [TAG]
-        - label: [TAG]
-        - label: [TAG]
-        - label: [TAG]
+        - label: TAG
+        - label: TAG
+        - label: TAG
+        - label: TAG
+        - label: TAG
+        - label: TAG
 
   - type: textarea
     id: notes
