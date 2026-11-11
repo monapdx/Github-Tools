@@ -17,7 +17,6 @@ body:
     attributes:
       label: Your name
       description: Who is reaching out?
-      placeholder: [PLACEHOLDER TEXT]
     validations:
       required: true
 
@@ -26,14 +25,12 @@ body:
     attributes:
       label: Company / organization
       description: If applicable
-      placeholder: [PLACEHOLDER TEXT]
 
   - type: input
     id: email
     attributes:
       label: Email address
       description: Best email to contact you
-      placeholder: [PLACEHOLDER TEXT]
     validations:
       required: true
 
@@ -57,7 +54,6 @@ body:
     attributes:
       label: Project summary
       description: Give me a brief overview of what you need help with
-      placeholder: [PLACEHOLDER TEXT]
     validations:
       required: true
 
@@ -66,7 +62,6 @@ body:
     attributes:
       label: Scope of work
       description: What exactly would you want me to do?
-      placeholder: [PLACEHOLDER TEXT]
     validations:
       required: true
 
@@ -75,10 +70,10 @@ body:
     attributes:
       label: Project type
       options:
-        - [TYPE]
-        - [TYPE]
-        - [TYPE]
-        - [TYPE]
+        - TYPE 1
+        - TYPE 2
+        - TYPE 3
+        - TYPE 4
     validations:
       required: true
 
@@ -87,14 +82,12 @@ body:
     attributes:
       label: Preferred tools / tech stack
       description: If you already know what tools or technologies you want used
-      placeholder: [PLACEHOLDER TEXT]
 
   - type: input
     id: timeline
     attributes:
       label: Desired timeline
       description: When would you like this to start and/or be completed?
-      placeholder: [PLACEHOLDER TEXT]
 
   - type: dropdown
     id: budget_range
@@ -116,7 +109,6 @@ body:
     attributes:
       label: References / examples
       description: Share links, screenshots, repos, or examples of what you want
-      placeholder: [PLACEHOLDER TEXT]
 
   - type: dropdown
     id: urgency
