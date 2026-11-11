@@ -15,5 +15,7 @@ Of course, we don't have to be in touch directly for you to make a meaningful co
 In fact, the two types of help I happen to be in the most need of at this point in time are:
 
 1. **Distribution and amplification:** if you find my tools useful and think others might benefit from them, I strongly urge you to share them with your friends, colleagues or clients. This is one of the absolute most powerful things you can do help me out right now. I do not use social media sites and I do not have a professional network to draw from either. So if you do, please share links to my repos with your people!
-2. **Modest sponsorship:** if any of my tools helped you and you are in a position to make a small donation or a small monthly contribution, that would be enormously helpful as well. The easiest option would be to become a **[Sponsor](https://github.com/sponsors/monapdx)** right here on Github!
+2. **Modest sponsorship:** if any of my tools helped you and you are in a position to make a small donation or a small monthly contribution, that would be enormously helpful as well. The easiest option would be to become a **[Sponsor](https://github.com/sponsors/monapdx)** right here on Github! If you prefer to support through Ko-Fi, I'm also there!
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/O4O41XT7AO)
 
