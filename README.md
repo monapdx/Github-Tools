@@ -9,7 +9,7 @@
 
 ## WHAT IS AN ISSUE TEMPLATE?
 
-<img src="Images/form.gif" alt="Paper plane" align="left" width="150"> For anyone who isn't from the developer community and is new to Github, you can think of an Issue as a form submission.
+<img src="Images/form.gif" alt="Paper plane" align="left" width="100"> For anyone who isn't from the developer community and is new to Github, you can think of an Issue as a form submission.
 
 Someone has something to say about your project or repository and they want to bring it to your attention or get in touch with you/collaborate.
 
