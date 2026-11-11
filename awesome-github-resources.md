@@ -2,8 +2,6 @@
 
 A curated collection of tools for customizing READMEs, exploring repositories, finding contributions, and getting more out of GitHub, plus related creative utilities.
 
-Links checked October 29, 2026. This checks whether the intended page or extension listing could be retrieved; it does not certify that every interactive feature, API, generated badge, or extension works end to end.
-
 ## Contents
 
 - [README and Profile Builders](#readme-and-profile-builders)
