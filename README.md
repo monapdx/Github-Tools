@@ -36,7 +36,7 @@ Issue Template **[examples](https://github.com/monapdx/Github-Tools/tree/main/.g
 
 ## ARE YOU NEW TO GITHUB?
 
-You don't have to be a developer or coder to use Github (I'm not either!)
+<img src="Images/green-github.gif" alt="Paper plane" align="left" width="100"> You don't have to be a developer or coder to use Github (I'm not either!)
 
 But when you are not, the conventions of the platform can be rather confusing and there is certainly a learning curve.
 
